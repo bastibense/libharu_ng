@@ -1,0 +1,4 @@
+[workspace]
+resolver = "2"
+
+members = ["libharu_ng", "json_to_pdf"]

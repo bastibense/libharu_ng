@@ -1,0 +1,7 @@
+[package]
+name = "json_to_pdf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+"libharu_ng" = { path = "../libharu_ng" }
