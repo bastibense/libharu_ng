@@ -15,6 +15,14 @@ To use `libharu` in your Rust program add the following to your `Cargo.toml` fil
 libharu_ng = "1"
 ```
 
+or
+
+on the command line:
+
+```bash
+$ cargo add libharu_ng
+```
+
 # About
 
 This is just a wrapper around the C library [libharu](http://libharu.org/).
