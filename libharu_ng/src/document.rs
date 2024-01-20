@@ -1,4 +1,5 @@
 use crate::haru_bindings as hb;
+use crate::page::PdfPage;
 
 /// The PDF document.
 ///
@@ -26,6 +27,22 @@ impl PdfDocument {
     ///
     pub fn get_error(&self) -> hb::HPDF_STATUS {
         unsafe { hb::HPDF_GetError(self.doc) }
+    }
+
+    /// Create a new page.
+    ///
+    pub fn add_page(&self) -> PdfPage {
+        let page = unsafe { hb::HPDF_AddPage(self.doc) };
+        PdfPage { page }
+    }
+
+    /// Set the title of the document.
+    ///
+    pub fn set_title(&self, title: &str) {
+        let title = std::ffi::CString::new(title).unwrap();
+        unsafe {
+            hb::HPDF_SetInfoAttr(self.doc, hb::_HPDF_InfoType_HPDF_INFO_TITLE, title.as_ptr())
+        };
     }
 }
 
