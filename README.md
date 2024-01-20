@@ -1,5 +1,7 @@
 # libharu_ng
 
+# DO _NOT_ USE - EXPERIMENTAL WORK IN PROGRESS
+
 A Rust API for [libharu](http://libaru.org/).
 
 ## Requirements
