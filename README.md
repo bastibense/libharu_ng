@@ -1,10 +1,8 @@
 # libharu_ng
 
-# ⚠️ DO _NOT_ USE - EXPERIMENTAL WORK IN PROGRESS
+# ⚠️ EXPERIMENTAL WORK IN PROGRESS ⚠️
 
-# ⚠️ THIS CRATE MIGHT BE REMOVED IN THE FUTURE
-
-# IF YOU ARE LOOKING FOR A LIBHARU BINDING, PLEASE STAR THIS REPOSITORY TO SHOW YOUR INTEREST.
+# ⭐ If you are interested in this project, please star this repository on GitHub to let us know! ⭐
 
 A Rust API for [libharu](http://libaru.org/).
 
