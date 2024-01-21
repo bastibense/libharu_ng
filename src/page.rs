@@ -60,6 +60,7 @@
 //! - [x] HPDF_Page_TextOut()
 //! - [ ] HPDF_Page_TextRect()
 
+use haru_types::HaruError;
 use haru_types::LineCap;
 use haru_types::RenderingMode;
 
@@ -81,25 +82,41 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_Arc
     ///
-    pub fn arc(&self, x: f32, y: f32, radius: f32, ang1: f32, ang2: f32) -> &Self {
-        unsafe { hb::HPDF_Page_Arc(self.page, x, y, radius, ang1, ang2) };
-        self
+    pub fn arc(
+        &self,
+        x: f32,
+        y: f32,
+        radius: f32,
+        ang1: f32,
+        ang2: f32,
+    ) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Arc(self.page, x, y, radius, ang1, ang2) };
+        match unsafe { hb::HPDF_Page_Arc(self.page, x, y, radius, ang1, ang2) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// begin_text() begins a text object and sets the text position to (0, 0).
     ///
     /// API: HPDF_Page_BeginText
     ///
-    pub fn begin_text(&self) -> &Self {
-        unsafe { hb::HPDF_Page_BeginText(self.page) };
-        self
+    pub fn begin_text(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_BeginText(self.page) };
+        match unsafe { hb::HPDF_Page_BeginText(self.page) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// circle() appends a circle to the current path.
     ///
-    pub fn circle(&self, x: f32, y: f32, radius: f32) -> &Self {
-        unsafe { hb::HPDF_Page_Circle(self.page, x, y, radius) };
-        self
+    pub fn circle(&self, x: f32, y: f32, radius: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Circle(self.page, x, y, radius) };
+        match unsafe { hb::HPDF_Page_Circle(self.page, x, y, radius) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// HPDF_Page_Clip() modifies the current clipping path by intersecting it with
@@ -117,9 +134,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_Clip
     ///
-    pub fn clip(&self) -> &Self {
-        unsafe { hb::HPDF_Page_Clip(self.page) };
-        self
+    pub fn clip(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Clip(self.page) };
+        match unsafe { hb::HPDF_Page_Clip(self.page) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// close_path() appends a straight line from the current point to the
@@ -128,18 +148,24 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_ClosePath
     ///
-    pub fn close_path(&self) -> &Self {
-        unsafe { hb::HPDF_Page_ClosePath(self.page) };
-        self
+    pub fn close_path(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_ClosePath(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// close_path_stroke() closes the current path. Then, it paints the path.
     ///
     /// API: HPDF_Page_ClosePathStroke
     ///
-    pub fn close_path_stroke(&self) -> &Self {
-        unsafe { hb::HPDF_Page_ClosePathStroke(self.page) };
-        self
+    pub fn close_path_stroke(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_ClosePathStroke(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// close_path_eofill_stroke() closes the current path, fills the current
@@ -147,9 +173,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_ClosePathEofillStroke
     ///
-    pub fn close_path_eofill_stroke(&self) -> &Self {
-        unsafe { hb::HPDF_Page_ClosePathEofillStroke(self.page) };
-        self
+    pub fn close_path_eofill_stroke(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_ClosePathEofillStroke(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(0)),
+        }
     }
 
     /// close_path_fill_stroke() closes the current path, fills the current
@@ -157,18 +186,32 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_ClosePathFillStroke
     ///
-    pub fn close_path_fill_stroke(&self) -> &Self {
-        unsafe { hb::HPDF_Page_ClosePathFillStroke(self.page) };
-        self
+    pub fn close_path_fill_stroke(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_ClosePathFillStroke(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(0)),
+        }
     }
 
     /// concat() concatenates the page's current transformation matrix and specified matrix.
     ///
     /// API: HPDF_Page_Concat
     ///
-    pub fn concat(&self, a: f32, b: f32, c: f32, d: f32, x: f32, y: f32) -> &Self {
-        unsafe { hb::HPDF_Page_Concat(self.page, a, b, c, d, x, y) };
-        self
+    pub fn concat(
+        &self,
+        a: f32,
+        b: f32,
+        c: f32,
+        d: f32,
+        x: f32,
+        y: f32,
+    ) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Concat(self.page, a, b, c, d, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// curve_to() appends a Bézier curve to the current path using the control points (x1, y1)
@@ -176,9 +219,20 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_CurveTo
     ///
-    pub fn curve_to(&self, x1: f32, y1: f32, x2: f32, y2: f32, x3: f32, y3: f32) -> &Self {
-        unsafe { hb::HPDF_Page_CurveTo(self.page, x1, y1, x2, y2, x3, y3) };
-        self
+    pub fn curve_to(
+        &self,
+        x1: f32,
+        y1: f32,
+        x2: f32,
+        y2: f32,
+        x3: f32,
+        y3: f32,
+    ) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_CurveTo(self.page, x1, y1, x2, y2, x3, y3) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// curve_to2() appends a Bézier curve to the current path using the current point and
@@ -186,9 +240,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_CurveTo2
     ///
-    pub fn curve_to2(&self, x2: f32, y2: f32, x3: f32, y3: f32) -> &Self {
-        unsafe { hb::HPDF_Page_CurveTo2(self.page, x2, y2, x3, y3) };
-        self
+    pub fn curve_to2(&self, x2: f32, y2: f32, x3: f32, y3: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_CurveTo2(self.page, x2, y2, x3, y3) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// curve_to3() appends a Bézier curve to the current path using two spesified points.
@@ -197,36 +254,48 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_CurveTo3
     ///
-    pub fn curve_to3(&self, x1: f32, y1: f32, x3: f32, y3: f32) -> &Self {
-        unsafe { hb::HPDF_Page_CurveTo3(self.page, x1, y1, x3, y3) };
-        self
+    pub fn curve_to3(&self, x1: f32, y1: f32, x3: f32, y3: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_CurveTo3(self.page, x1, y1, x3, y3) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// ellipse() appends an ellipse to the current path.
     ///
     /// API: HPDF_Page_Ellipse
     ///
-    pub fn ellipse(&self, x: f32, y: f32, xray: f32, yray: f32) -> &Self {
-        unsafe { hb::HPDF_Page_Ellipse(self.page, x, y, xray, yray) };
-        self
+    pub fn ellipse(&self, x: f32, y: f32, xray: f32, yray: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Ellipse(self.page, x, y, xray, yray) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// end_path() ends the path object without filling or painting.
     ///
     /// API: HPDF_Page_EndPath
     ///
-    pub fn end_path(&self) -> &Self {
-        unsafe { hb::HPDF_Page_EndPath(self.page) };
-        self
+    pub fn end_path(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_EndPath(self.page) };
+        match unsafe { hb::HPDF_Page_EndPath(self.page) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// end_text() ends a text object.
     ///
     /// API: HPDF_Page_EndText
     ///
-    pub fn end_text(&self) -> &Self {
-        unsafe { hb::HPDF_Page_EndText(self.page) };
-        self
+    pub fn end_text(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_EndText(self.page) };
+        match unsafe { hb::HPDF_Page_EndText(self.page) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// eo_clip() modifies the current clipping path by intersecting it
@@ -243,54 +312,72 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_Eoclip
     ///
-    pub fn eo_clip(&self) -> &Self {
-        unsafe { hb::HPDF_Page_Eoclip(self.page) };
-        self
+    pub fn eo_clip(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Eoclip(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// eo_fill() fills the current path using the even-odd rule.
     ///
     /// API: HPDF_Page_Eofill
     ///
-    pub fn eo_fill(&self) -> &Self {
-        unsafe { hb::HPDF_Page_Eofill(self.page) };
-        self
+    pub fn eo_fill(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Eofill(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// eo_fill_stroke() fills the current path using the even-odd rule, then paints the path.
     ///
     /// API: HPDF_Page_EofillStroke
     ///
-    pub fn eo_fill_stroke(&self) -> &Self {
-        unsafe { hb::HPDF_Page_EofillStroke(self.page) };
-        self
+    pub fn eo_fill_stroke(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_EofillStroke(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// fill() fills the current path using the nonzero winding number rule.
     ///
     /// API: HPDF_Page_Fill
     ///
-    pub fn fill(&self) -> &Self {
-        unsafe { hb::HPDF_Page_Fill(self.page) };
-        self
+    pub fn fill(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Fill(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// fill_stroke() fills the current path using the nonzero winding number rule, then paints the path.
     ///
     /// API: HPDF_Page_FillStroke
     ///
-    pub fn fill_stroke(&self) -> &Self {
-        unsafe { hb::HPDF_Page_FillStroke(self.page) };
-        self
+    pub fn fill_stroke(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_FillStroke(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// g_restore() restores the graphics state which is saved by g_save().
     ///
     /// API: HPDF_Page_GRestore
     ///
-    pub fn g_restore(&self) -> &Self {
-        unsafe { hb::HPDF_Page_GRestore(self.page) };
-        self
+    pub fn g_restore(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_GRestore(self.page) };
+        match unsafe { hb::HPDF_Page_GRestore(self.page) } {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// g_save() saves the page's current graphics parameter to the stack.
@@ -320,117 +407,156 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_GSave
     ///
-    pub fn g_save(&self) -> &Self {
-        unsafe { hb::HPDF_Page_GSave(self.page) };
-        self
+    pub fn g_save(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_GSave(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// line_to() appends a path from the current point to the specified point.
     ///
     /// API: HPDF_Page_LineTo
     ///
-    pub fn line_to(&self, x: f32, y: f32) -> &Self {
-        unsafe { hb::HPDF_Page_LineTo(self.page, x, y) };
-        self
+    pub fn line_to(&self, x: f32, y: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_LineTo(self.page, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_char_space() sets the character spacing for text.
     ///
     /// API: HPDF_Page_SetCharSpace
     ///
-    pub fn set_char_space(&self, value: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetCharSpace(self.page, value) };
-        self
+    pub fn set_char_space(&self, value: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetCharSpace(self.page, value) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_cmyk_fill() sets the filling color.
     ///
     /// API: HPDF_Page_SetCMYKFill
     ///
-    pub fn set_cmyk_fill(&self, c: f32, m: f32, y: f32, k: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetCMYKFill(self.page, c, m, y, k) };
-        self
+    pub fn set_cmyk_fill(&self, c: f32, m: f32, y: f32, k: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetCMYKFill(self.page, c, m, y, k) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_cmyk_stroke() sets the stroking color.
     ///
     /// API: HPDF_Page_SetCMYKStroke
     ///
-    pub fn set_cmyk_stroke(&self, c: f32, m: f32, y: f32, k: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetCMYKStroke(self.page, c, m, y, k) };
-        self
+    pub fn set_cmyk_stroke(&self, c: f32, m: f32, y: f32, k: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetCMYKStroke(self.page, c, m, y, k) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// HPDF_Page_SetFontAndSize() sets the type of font and size leading.
     ///
     /// API: HPDF_Page_SetFontAndSize
     ///
-    pub fn set_font_and_size(&self, font: PdfFont, size: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetFontAndSize(self.page, font.font_ref, size) };
-        self
+    pub fn set_font_and_size(&self, font: PdfFont, size: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetFontAndSize(self.page, font.font_ref, size) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// HPDF_Page_SetGrayFill() sets the filling color.
     ///
     /// API: HPDF_Page_SetGrayFill
     ///
-    pub fn set_gray_fill(&self, gray: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetGrayFill(self.page, gray) };
-        self
+    pub fn set_gray_fill(&self, gray: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetGrayFill(self.page, gray) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// HPDF_Page_SetGrayStroke() sets the stroking color.
     ///
     /// API: HPDF_Page_SetGrayStroke
     ///
-    pub fn set_gray_stroke(&self, gray: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetGrayStroke(self.page, gray) };
-        self
+    pub fn set_gray_stroke(&self, gray: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetGrayStroke(self.page, gray) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_horizontal_scalling() sets the horizontal scalling (scaling) for text showing.
     ///
     /// API: HPDF_Page_SetHorizontalScalling
     ///
-    pub fn set_horizontal_scalling(&self, value: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetHorizontalScalling(self.page, value) };
-        self
+    pub fn set_horizontal_scalling(&self, value: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetHorizontalScalling(self.page, value) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// HPDF_Page_SetLineCap() sets the shape to be used at the ends of lines.
     ///
     /// API: HPDF_Page_SetLineCap
     ///
-    pub fn set_line_cap(&self, line_cap: LineCap) -> &Self {
-        unsafe { hb::HPDF_Page_SetLineCap(self.page, line_cap as u32) };
-        self
+    pub fn set_line_cap(&self, line_cap: LineCap) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetLineCap(self.page, line_cap as u32) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_line_join() Sets the line join style in the page.
     ///
     /// API: HPDF_Page_SetLineJoin
     ///
-    pub fn set_line_join(&self, line_join: haru_types::LineJoin) -> &Self {
-        unsafe { hb::HPDF_Page_SetLineJoin(self.page, line_join as u32) };
-        self
+    pub fn set_line_join(&self, line_join: haru_types::LineJoin) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetLineJoin(self.page, line_join as u32) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_miter_limit() sets the miter limit for the page.
     ///
     /// API: HPDF_Page_SetMiterLimit
     ///
-    pub fn set_miter_limit(&self, miter_limit: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetMiterLimit(self.page, miter_limit) };
-        self
+    pub fn set_miter_limit(&self, miter_limit: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetMiterLimit(self.page, miter_limit) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_line_width() sets the width of the line used to stroke a path.
     ///
     /// API: HPDF_Page_SetLineWidth
     ///
-    pub fn set_line_width(&self, line_width: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetLineWidth(self.page, line_width) };
-        self
+    pub fn set_line_width(&self, line_width: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetLineWidth(self.page, line_width) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// move_text_pos() changes the current text position, using the specified offset values.
@@ -439,9 +565,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_MoveTextPos
     ///
-    pub fn move_text_pos(&self, x: f32, y: f32) -> &Self {
-        unsafe { hb::HPDF_Page_MoveTextPos(self.page, x, y) };
-        self
+    pub fn move_text_pos(&self, x: f32, y: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_MoveTextPos(self.page, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// move_text_pos2() changes the current text position, using the specified offset values.
@@ -449,9 +578,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_MoveTextPos2
     ///
-    pub fn move_text_pos2(&self, x: f32, y: f32) -> &Self {
-        unsafe { hb::HPDF_Page_MoveTextPos2(self.page, x, y) };
-        self
+    pub fn move_text_pos2(&self, x: f32, y: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_MoveTextPos2(self.page, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// move_to() starts a new subpath and move the current point for drawing path,
@@ -459,9 +591,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_MoveTo
     ///
-    pub fn move_to(&self, x: f32, y: f32) -> &Self {
-        unsafe { hb::HPDF_Page_MoveTo(self.page, x, y) };
-        self
+    pub fn move_to(&self, x: f32, y: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_MoveTo(self.page, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// move_to_next_line() moves current position for the text showing depending on
@@ -470,36 +605,48 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_MoveToNextLine
     ///
-    pub fn move_to_next_line(&self) -> &Self {
-        unsafe { hb::HPDF_Page_MoveToNextLine(self.page) };
-        self
+    pub fn move_to_next_line(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_MoveToNextLine(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// rectangle() appends a rectangle to the current path.
     ///
     /// API: HPDF_Page_Rectangle
     ///
-    pub fn rectangle(&self, x: f32, y: f32, width: f32, height: f32) -> &Self {
-        unsafe { hb::HPDF_Page_Rectangle(self.page, x, y, width, height) };
-        self
+    pub fn rectangle(&self, x: f32, y: f32, width: f32, height: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Rectangle(self.page, x, y, width, height) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_width() sets the width of the page.
     ///
     /// API: HPDF_Page_SetWidth
     ///
-    pub fn set_width(&self, width: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetWidth(self.page, width) };
-        self
+    pub fn set_width(&self, width: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetWidth(self.page, width) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_height() sets the height of the page.
     ///
     /// API: HPDF_Page_SetHeight
     ///
-    pub fn set_height(&self, height: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetHeight(self.page, height) };
-        self
+    pub fn set_height(&self, height: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetHeight(self.page, height) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// HPDF_Page_SetTextRenderingMode() sets the text rendering mode.
@@ -507,9 +654,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_SetTextRenderingMode
     ///
-    pub fn set_text_rendering_mode(&self, mode: RenderingMode) -> &Self {
-        unsafe { hb::HPDF_Page_SetTextRenderingMode(self.page, mode as u32) };
-        self
+    pub fn set_text_rendering_mode(&self, mode: RenderingMode) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetTextRenderingMode(self.page, mode as u32) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// get_width() returns the width of the page.
@@ -532,18 +682,24 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_SetRGBFill
     ///
-    pub fn set_rgb_fill(&self, r: f32, g: f32, b: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetRGBFill(self.page, r, g, b) };
-        self
+    pub fn set_rgb_fill(&self, r: f32, g: f32, b: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetRGBFill(self.page, r, g, b) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_rgb_stroke() sets the stroking color.
     ///
     /// API: HPDF_Page_SetRGBStroke
     ///
-    pub fn set_rgb_stroke(&self, r: f32, g: f32, b: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetRGBStroke(self.page, r, g, b) };
-        self
+    pub fn set_rgb_stroke(&self, r: f32, g: f32, b: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetRGBStroke(self.page, r, g, b) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_text_leading() sets the text leading (line spacing) for
@@ -551,9 +707,12 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_SetTextLeading
     ///
-    pub fn set_text_leading(&self, value: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetTextLeading(self.page, value) };
-        self
+    pub fn set_text_leading(&self, value: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetTextLeading(self.page, value) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_text_matrix sets a transformation matrix for text to be
@@ -561,9 +720,20 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_SetTextMatrix
     ///
-    pub fn set_text_matrix(&self, a: f32, b: f32, c: f32, d: f32, x: f32, y: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetTextMatrix(self.page, a, b, c, d, x, y) };
-        self
+    pub fn set_text_matrix(
+        &self,
+        a: f32,
+        b: f32,
+        c: f32,
+        d: f32,
+        x: f32,
+        y: f32,
+    ) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetTextMatrix(self.page, a, b, c, d, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_text_rise() moves the text position in vertical direction
@@ -571,28 +741,37 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_SetTextRise
     ///
-    pub fn set_text_rise(&self, value: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetTextRise(self.page, value) };
-        self
+    pub fn set_text_rise(&self, value: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetTextRise(self.page, value) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// set_word_space() sets the word spacing for text.
     ///
     /// API: HPDF_Page_SetWordSpace
     ///
-    pub fn set_word_space(&self, value: f32) -> &Self {
-        unsafe { hb::HPDF_Page_SetWordSpace(self.page, value) };
-        self
+    pub fn set_word_space(&self, value: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetWordSpace(self.page, value) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// show_text() prints the text at the current position on the page.
     ///
     /// API: HPDF_Page_ShowText
     ///
-    pub fn show_text(&self, text: &str) -> &Self {
+    pub fn show_text(&self, text: &str) -> Result<&Self, HaruError> {
         let text = std::ffi::CString::new(text).unwrap();
-        unsafe { hb::HPDF_Page_ShowText(self.page, text.as_ptr()) };
-        self
+        let result = unsafe { hb::HPDF_Page_ShowText(self.page, text.as_ptr()) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// show_text_next_line() moves the current text position to the
@@ -600,10 +779,13 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_ShowTextNextLine
     ///
-    pub fn show_text_next_line(&self, text: &str) -> &Self {
+    pub fn show_text_next_line(&self, text: &str) -> Result<&Self, HaruError> {
         let text = std::ffi::CString::new(text).unwrap();
-        unsafe { hb::HPDF_Page_ShowTextNextLine(self.page, text.as_ptr()) };
-        self
+        let result = unsafe { hb::HPDF_Page_ShowTextNextLine(self.page, text.as_ptr()) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// show_text_next_line_ex() moves the current text position to the start of
@@ -612,30 +794,44 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_ShowTextNextLineEx
     ///
-    pub fn show_text_next_line_ex(&self, word_space: f32, char_space: f32, text: &str) -> &Self {
+    pub fn show_text_next_line_ex(
+        &self,
+        word_space: f32,
+        char_space: f32,
+        text: &str,
+    ) -> Result<&Self, HaruError> {
         let text = std::ffi::CString::new(text).unwrap();
-        unsafe {
+        let result = unsafe {
             hb::HPDF_Page_ShowTextNextLineEx(self.page, word_space, char_space, text.as_ptr())
         };
-        self
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// stroke() paints the current path.
     ///
     /// API: HPDF_Page_Stroke
     ///
-    pub fn stroke(&self) -> &Self {
-        unsafe { hb::HPDF_Page_Stroke(self.page) };
-        self
+    pub fn stroke(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Stroke(self.page) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 
     /// text_out() prints the text on the specified position.
     ///
     /// API: HPDF_Page_TextOut
     ///
-    pub fn text_out(&self, x: f32, y: f32, text: &str) -> &Self {
+    pub fn text_out(&self, x: f32, y: f32, text: &str) -> Result<&Self, HaruError> {
         let text = std::ffi::CString::new(text).unwrap();
-        unsafe { hb::HPDF_Page_TextOut(self.page, x, y, text.as_ptr()) };
-        self
+        let result = unsafe { hb::HPDF_Page_TextOut(self.page, x, y, text.as_ptr()) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
     }
 }
