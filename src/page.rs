@@ -119,16 +119,16 @@ impl PdfPage {
         }
     }
 
-    /// HPDF_Page_Clip() modifies the current clipping path by intersecting it with
+    /// clip() modifies the current clipping path by intersecting it with
     /// the current path using the nonzero winding number rule. The clipping path
     /// is only modified after the succeeding painting operator. To avoid painting
-    /// the current path, use the function HPDF_Page_EndPath(). Following painting
+    /// the current path, use the function end_path(). Following painting
     /// operations will only affect the regions of the page contained by the
     /// clipping path.
     ///
     /// Initially, the clipping path includes the entire page. There is no way to
     /// enlarge the current clipping path, or to replace the clipping path with a
-    /// new one. The functions HPDF_Page_GSave() and HPDF_Page_GRestore() may be
+    /// new one. The functions g_save() and g_restore() may be
     /// used to save and restore the current graphics state, including the clipping
     /// path.
     ///
@@ -463,7 +463,7 @@ impl PdfPage {
         }
     }
 
-    /// HPDF_Page_SetFontAndSize() sets the type of font and size leading.
+    /// set_font_and_size() sets the type of font and size leading.
     ///
     /// API: HPDF_Page_SetFontAndSize
     ///
@@ -475,7 +475,7 @@ impl PdfPage {
         }
     }
 
-    /// HPDF_Page_SetGrayFill() sets the filling color.
+    /// set_gray_fill() sets the filling color.
     ///
     /// API: HPDF_Page_SetGrayFill
     ///
@@ -487,7 +487,7 @@ impl PdfPage {
         }
     }
 
-    /// HPDF_Page_SetGrayStroke() sets the stroking color.
+    /// set_gray_stroke() sets the stroking color.
     ///
     /// API: HPDF_Page_SetGrayStroke
     ///
@@ -511,7 +511,7 @@ impl PdfPage {
         }
     }
 
-    /// HPDF_Page_SetLineCap() sets the shape to be used at the ends of lines.
+    /// set_line_cap() sets the shape to be used at the ends of lines.
     ///
     /// API: HPDF_Page_SetLineCap
     ///
@@ -649,8 +649,8 @@ impl PdfPage {
         }
     }
 
-    /// HPDF_Page_SetTextRenderingMode() sets the text rendering mode.
-    /// The initial value of text rendering mode is HPDF_FILL.
+    /// set_text_rendering_mode() sets the text rendering mode.
+    /// The initial value of text rendering mode is Fill.
     ///
     /// API: HPDF_Page_SetTextRenderingMode
     ///
@@ -715,8 +715,8 @@ impl PdfPage {
         }
     }
 
-    /// set_text_matrix sets a transformation matrix for text to be
-    /// drawn in using HPDF_Page_ShowText().
+    /// set_text_matrix() sets a transformation matrix for text to be
+    /// drawn in using show_text().
     ///
     /// API: HPDF_Page_SetTextMatrix
     ///
