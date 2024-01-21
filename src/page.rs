@@ -3,7 +3,7 @@
 
 use crate::haru_bindings as hb;
 
-/// Th PDF Page object.
+/// The PDF Page object.
 ///
 pub struct PdfPage {
     /// The reference to the haru page.

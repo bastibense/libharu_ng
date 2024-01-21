@@ -4,20 +4,6 @@
 //!
 //! This crate provides a high level API for creating PDF files.
 //!
-//! # Examples
-//!
-//! ```
-//! use libharu_ng;
-//!
-//! fn main() {
-//!     let doc = libharu_ng::document::PdfDocument::new();
-//!     let page = doc.add_page();
-//!     page.show_text("Hello World!");
-//!     doc.save_to_file("hello_world.pdf");
-//!     println!("hello_world.pdf has been created!");
-//! }
-//! ```
-//!
 mod haru_bindings;
 
 pub mod document;
