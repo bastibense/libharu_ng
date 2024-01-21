@@ -1,4 +1,4 @@
-use libharu_ng;
+use libharu_ng::{self, document::PdfDocument};
 
 /// Hello World example.
 ///
@@ -6,9 +6,22 @@ use libharu_ng;
 ///
 
 fn main() {
-    let doc = libharu_ng::document::PdfDocument::new();
+    let doc = PdfDocument::new();
+
     let page = doc.add_page();
-    page.show_text("Hello World!");
-    doc.save_to_file("hello_world.pdf");
-    println!("hello_world.pdf has been created!");
+
+    page.begin_text().expect("Begin text failed");
+
+    page.move_text_pos(220.0, 20.0)
+        .expect("Move text pos failed");
+
+    let fnt = doc.get_font("Helvetica", None);
+    page.set_font_and_size(fnt, 24.0)
+        .expect("Set font and size failed");
+
+    page.show_text("Hello World").expect("Show text failed");
+
+    page.end_text().expect("End text failed");
+
+    doc.save_to_file("./test.pdf").expect("Save to file failed");
 }

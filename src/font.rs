@@ -20,6 +20,7 @@ use crate::haru_bindings as hb;
 
 /// The font object.
 ///
+#[derive(Debug)]
 pub struct PdfFont {
     /// The reference to the haru font.
     pub font_ref: hb::HPDF_Font,

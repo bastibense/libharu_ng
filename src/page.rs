@@ -91,7 +91,7 @@ impl PdfPage {
         ang2: f32,
     ) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_Arc(self.page, x, y, radius, ang1, ang2) };
-        match unsafe { hb::HPDF_Page_Arc(self.page, x, y, radius, ang1, ang2) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
@@ -103,7 +103,7 @@ impl PdfPage {
     ///
     pub fn begin_text(&self) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_BeginText(self.page) };
-        match unsafe { hb::HPDF_Page_BeginText(self.page) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
@@ -113,7 +113,7 @@ impl PdfPage {
     ///
     pub fn circle(&self, x: f32, y: f32, radius: f32) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_Circle(self.page, x, y, radius) };
-        match unsafe { hb::HPDF_Page_Circle(self.page, x, y, radius) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
@@ -136,7 +136,7 @@ impl PdfPage {
     ///
     pub fn clip(&self) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_Clip(self.page) };
-        match unsafe { hb::HPDF_Page_Clip(self.page) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
@@ -280,7 +280,7 @@ impl PdfPage {
     ///
     pub fn end_path(&self) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_EndPath(self.page) };
-        match unsafe { hb::HPDF_Page_EndPath(self.page) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
@@ -292,7 +292,7 @@ impl PdfPage {
     ///
     pub fn end_text(&self) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_EndText(self.page) };
-        match unsafe { hb::HPDF_Page_EndText(self.page) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }

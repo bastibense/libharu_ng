@@ -64,6 +64,26 @@ impl PdfDocument {
         PageMode::from_hpdf_mode(mode)
     }
 
+    /// get_font() returns the font specified by fontname and encoding_name.
+    ///
+    /// API: HPDF_GetFont
+    ///
+    pub fn get_font(&self, fontname: &str, encoding_name: Option<&str>) -> PdfFont {
+        let fontname = std::ffi::CString::new(fontname).unwrap();
+
+        // If encoding_name is specified, the font with the specified encoding is returned.
+        // Otherwise, pass NULL for encoding_name to get the font with the default encoding.
+        if let Some(encoding_name) = encoding_name {
+            let encoding_name = std::ffi::CString::new(encoding_name).unwrap();
+            let font =
+                unsafe { hb::HPDF_GetFont(self.doc, fontname.as_ptr(), encoding_name.as_ptr()) };
+            return PdfFont { font_ref: font };
+        }
+
+        let font = unsafe { hb::HPDF_GetFont(self.doc, fontname.as_ptr(), core::ptr::null_mut()) };
+        return PdfFont { font_ref: font };
+    }
+
     /// HPDF_SetPageLayout() sets how the page should be displayed. If this attribute
     /// is not set, the setting of the viewer application is used.
     ///
@@ -153,6 +173,23 @@ impl PdfDocument {
     ///
     pub fn set_compression_mode(&self, mode: CompressionMode) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_SetCompressionMode(self.doc, mode.to_hpdf_compression()) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// set_font_and_size() sets the current font and size.
+    ///
+    /// API: HPDF_Page_SetFontAndSize
+    ///
+    pub fn set_font_and_size(
+        &self,
+        page: &PdfPage,
+        font: &PdfFont,
+        size: f32,
+    ) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_SetFontAndSize(page.page, font.font_ref, size) };
         match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
