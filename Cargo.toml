@@ -20,5 +20,13 @@ categories = [
 edition = "2021"
 build = "build.rs"
 
+exclude = [
+  ".github",
+  ".gitignore",
+  ".dockerignore",
+  "Dockerfile",
+  "*.code-workspace",
+]
+
 [dependencies]
 anyhow = "1.0.79"
