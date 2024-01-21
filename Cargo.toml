@@ -8,14 +8,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/bastibense/libharu_ng"
 homepage = "https://github.com/bastibense/libharu_ng"
-categories = [
-  "pdf",
-  "libharu",
-  "pdf-generation",
-  "pdf-writer",
-  "pdflib",
-  "haru",
-]
+categories = ["pdf", "libharu", "pdf-generation", "generator", "haru"]
 
 edition = "2021"
 build = "build.rs"
