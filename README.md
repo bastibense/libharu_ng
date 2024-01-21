@@ -1,5 +1,7 @@
 # libharu_ng
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bastibense/libharu_ng/master-build-test.yml)
+
 ## ⚠️ EXPERIMENTAL WORK IN PROGRESS ⚠️
 
 ### ⭐ If you are interested in this project, [please star this repository on GitHub](https://github.com/bastibense/libharu_ng) to let us know! ⭐
