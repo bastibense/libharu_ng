@@ -1,9 +1,22 @@
-//!  PDF-Document related structs and functions.
+//! PDF-Document related structs and functions.
+//!
+//! ## Implementation Status
+//!
+//! - [x] HPDF_LoadType1FontFromFile()
+//! - [x] HPDF_LoadTTFontFromFile()
+//! - [x] HPDF_LoadTTFontFromFile2()
+//! - [x] HPDF_UseCNSFonts()
+//! - [x] HPDF_UseCNTFonts()
+//! - [x] HPDF_UseJPFonts()
+//! - [x] HPDF_UseKRFonts()
 //!
 
-use crate::haru_bindings as hb;
-use crate::haru_types::{CompressionMode, HaruError, PageLayout, PageMode};
-use crate::page::PdfPage;
+use crate::{
+    font::PdfFont,
+    haru_bindings as hb,
+    haru_types::{CompressionMode, HaruError, PageLayout, PageMode},
+    page::PdfPage,
+};
 
 /// The PDF document.
 ///
@@ -97,6 +110,78 @@ impl PdfDocument {
     ///
     pub fn set_compression_mode(&self, mode: CompressionMode) {
         unsafe { hb::HPDF_SetCompressionMode(self.doc, mode.to_hpdf_compression()) };
+    }
+
+    /// load_tt_font_from_file() loads a TrueType font file and returns a font object.
+    ///
+    /// API: HPDF_LoadTTFontFromFile
+    ///
+    pub fn load_tt_font_from_file(&self, filename: &str, embedding: bool) -> PdfFont {
+        let filename = std::ffi::CString::new(filename).unwrap();
+        let embedding = if embedding { 1 } else { 0 };
+        let fontname =
+            unsafe { hb::HPDF_LoadTTFontFromFile(self.doc, filename.as_ptr(), embedding) };
+        let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
+        PdfFont { font_ref: font }
+    }
+
+    /// load_tt_font_from_file2() loads a TrueType font file and returns a font object.
+    ///
+    /// API: HPDF_LoadTTFontFromFile2
+    ///
+    pub fn load_tt_font_from_file2(&self, filename: &str, index: u32, embedding: bool) -> PdfFont {
+        let filename = std::ffi::CString::new(filename).unwrap();
+        let embedding = if embedding { 1 } else { 0 };
+        let fontname =
+            unsafe { hb::HPDF_LoadTTFontFromFile2(self.doc, filename.as_ptr(), index, embedding) };
+        let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
+        PdfFont { font_ref: font }
+    }
+
+    /// HPDF_LoadType1FontFromFile() loads a Type1 font file and returns a font object.
+    ///
+    /// API: HPDF_LoadType1FontFromFile
+    ///
+    pub fn load_type1_font_from_file(&self, afm_filename: &str, pfm_filename: &str) -> PdfFont {
+        let afm_filename = std::ffi::CString::new(afm_filename).unwrap();
+        let pfm_filename = std::ffi::CString::new(pfm_filename).unwrap();
+        let fontname = unsafe {
+            hb::HPDF_LoadType1FontFromFile(self.doc, afm_filename.as_ptr(), pfm_filename.as_ptr())
+        };
+        let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
+        PdfFont { font_ref: font }
+    }
+
+    /// HPDF_UseCNSFonts() loads Chinese simplified fonts.
+    ///
+    /// API: HPDF_UseCNSFonts
+    ///
+    pub fn use_cns_fonts(&self) {
+        unsafe { hb::HPDF_UseCNSFonts(self.doc) };
+    }
+
+    /// HPDF_UseCNTFonts() loads Chinese traditional fonts.
+    ///
+    /// API: HPDF_UseCNTFonts
+    ///
+    pub fn use_cnt_fonts(&self) {
+        unsafe { hb::HPDF_UseCNTFonts(self.doc) };
+    }
+
+    /// HPDF_UseJPFonts() loads Japanese fonts.
+    ///
+    /// API: HPDF_UseJPFonts
+    ///
+    pub fn use_jp_fonts(&self) {
+        unsafe { hb::HPDF_UseJPFonts(self.doc) };
+    }
+
+    /// HPDF_UseKRFonts() loads Korean fonts.
+    ///
+    /// API: HPDF_UseKRFonts
+    ///
+    pub fn use_kr_fonts(&self) {
+        unsafe { hb::HPDF_UseKRFonts(self.doc) };
     }
 }
 
