@@ -44,7 +44,7 @@ impl PdfFont {
     /// in a specific font. Actual width of the character on the page
     /// can be calculated as follows:
     ///
-    /// ```rust
+    /// ```rust,ignore
     /// char_width = HPDF_Font_GetUnicodeWidth (font, UNICODE);
     /// float actual_width = char_width * FONT_SIZE / 1000;
     /// ````
