@@ -32,7 +32,7 @@ impl PdfDocument {
     /// Create a new page.
     ///
     pub fn add_page(&self) -> PdfPage {
-        let page = unsafe { hb::HPDF_AddPage(self.doc) };
+        let page: *mut hb::_HPDF_Dict_Rec = unsafe { hb::HPDF_AddPage(self.doc) };
         PdfPage { page }
     }
 
