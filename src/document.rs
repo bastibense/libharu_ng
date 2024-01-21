@@ -75,7 +75,11 @@ impl PdfDocument {
     ///
     /// API: HPDF_GetFont
     ///
-    pub fn get_font(&self, fontname: &str, encoding_name: Option<&str>) -> PdfFont {
+    pub fn get_font(
+        &self,
+        fontname: &str,
+        encoding_name: Option<&str>,
+    ) -> Result<PdfFont, HaruError> {
         let fontname = std::ffi::CString::new(fontname).unwrap();
 
         // If encoding_name is specified, the font with the specified encoding is returned.
@@ -84,11 +88,21 @@ impl PdfDocument {
             let encoding_name = std::ffi::CString::new(encoding_name).unwrap();
             let font =
                 unsafe { hb::HPDF_GetFont(self.doc, fontname.as_ptr(), encoding_name.as_ptr()) };
-            return PdfFont { font_ref: font };
+            return Ok(PdfFont { font_ref: font });
         }
 
+        // When this fails, it returns NULL.
+        // One of these error codes might be the culprit:
+        // - HPDF_FAILD_TO_ALLOC_MEM - Memory allocation failed.
+        // - HPDF_INVALID_DOCUMENT - An invalid document handle was set.
+        // - HPDF_INVALID_FONT_NAME - An invalid font name was set.
+        // - HPDF_INVALID_ENCODING_NAME - An invalid encoding name was set.
+        // - HPDF_UNSUPPORTED_FONT_TYPE - An unsupported font type was set.
         let font = unsafe { hb::HPDF_GetFont(self.doc, fontname.as_ptr(), core::ptr::null_mut()) };
-        PdfFont { font_ref: font }
+        match font.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfFont { font_ref: font }),
+        }
     }
 
     /// set_page_layout() sets how the page should be displayed. If this attribute
@@ -129,7 +143,6 @@ impl PdfDocument {
     /// API: HPDF_GetError
     ///
     pub fn get_error(&self) -> HaruError {
-        // TODO: Should not cast int type?
         let error = unsafe { hb::HPDF_GetError(self.doc) };
         HaruError::from(error as u32)
     }
@@ -138,20 +151,28 @@ impl PdfDocument {
     ///
     /// API: HPDF_AddPage
     ///
-    pub fn add_page(&self) -> PdfPage {
-        // TODO: Error handling.
+    pub fn add_page(&self) -> Result<PdfPage, HaruError> {
         let page: *mut hb::_HPDF_Dict_Rec = unsafe { hb::HPDF_AddPage(self.doc) };
-        PdfPage { page }
+        match page.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfPage { page }),
+        }
     }
 
     /// insert_page() creates a new page and inserts it just before the specified page.
     ///
     /// API: HPDF_InsertPage
     ///
-    pub fn insert_page(&self, page: PdfPage) -> PdfPage {
-        // TODO: Error handling.
+    pub fn insert_page(&self, page: PdfPage) -> Result<PdfPage, HaruError> {
+        // Possible error codes:
+        // HPDF_INVALID_DOCUMENT - An invalid document handle was set.
+        // HPDF_FAILD_TO_ALLOC_MEM - Memory allocation failed.
+        // HPDF_INVALID_PAGE - An invalid page handle was set.
         let page: *mut hb::_HPDF_Dict_Rec = unsafe { hb::HPDF_InsertPage(self.doc, page.page) };
-        PdfPage { page }
+        match page.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfPage { page }),
+        }
     }
 
     /// Set the title of the document.
@@ -211,43 +232,77 @@ impl PdfDocument {
     ///
     /// API: HPDF_LoadTTFontFromFile
     ///
-    pub fn load_tt_font_from_file(&self, filename: &str, embedding: bool) -> PdfFont {
-        // TODO: Error handling.
+    pub fn load_tt_font_from_file(
+        &self,
+        filename: &str,
+        embedding: bool,
+    ) -> Result<PdfFont, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
         let embedding = if embedding { 1 } else { 0 };
         let fontname =
             unsafe { hb::HPDF_LoadTTFontFromFile(self.doc, filename.as_ptr(), embedding) };
+
+        // If this fails, the following error codes might be the culprit:
+        //
+        // - HPDF_INVALID_DOCUMENT - An invalid document handle was set.
+        // - HPDF_FAILD_TO_ALLOC_MEM - Memory allocation failed.
+        // - HPDF_FONT_EXISTS - The font of the same name has already been registered.
+        // - HPDF_INVALID_AFM_HEADER, HPDF_INVALID_CHAR_MATRICS_DATA, HPDF_INVALID_N_DATA - Cannot recognize AFM file.
+        // - HPDF_UNSUPPORTED_TYPE1_FONT - Cannot recognize PFA/PFB file.
+        //
         let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
-        PdfFont { font_ref: font }
+        match font.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfFont { font_ref: font }),
+        }
     }
 
     /// load_tt_font_from_file2() loads a TrueType font file and returns a font object.
     ///
     /// API: HPDF_LoadTTFontFromFile2
     ///
-    pub fn load_tt_font_from_file2(&self, filename: &str, index: u32, embedding: bool) -> PdfFont {
-        // TODO: Error handling.
+    pub fn load_tt_font_from_file2(
+        &self,
+        filename: &str,
+        index: u32,
+        embedding: bool,
+    ) -> Result<PdfFont, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
         let embedding = if embedding { 1 } else { 0 };
         let fontname =
             unsafe { hb::HPDF_LoadTTFontFromFile2(self.doc, filename.as_ptr(), index, embedding) };
+        if fontname.is_null() {
+            return Err(HaruError::from(0));
+        }
         let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
-        PdfFont { font_ref: font }
+        match font.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfFont { font_ref: font }),
+        }
     }
 
     /// HPDF_LoadType1FontFromFile() loads a Type1 font file and returns a font object.
     ///
     /// API: HPDF_LoadType1FontFromFile
     ///
-    pub fn load_type1_font_from_file(&self, afm_filename: &str, pfm_filename: &str) -> PdfFont {
-        // TODO: Error handling.
+    pub fn load_type1_font_from_file(
+        &self,
+        afm_filename: &str,
+        pfm_filename: &str,
+    ) -> Result<PdfFont, HaruError> {
         let afm_filename = std::ffi::CString::new(afm_filename).unwrap();
         let pfm_filename = std::ffi::CString::new(pfm_filename).unwrap();
         let fontname = unsafe {
             hb::HPDF_LoadType1FontFromFile(self.doc, afm_filename.as_ptr(), pfm_filename.as_ptr())
         };
+        if fontname.is_null() {
+            return Err(HaruError::from(0));
+        }
         let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
-        PdfFont { font_ref: font }
+        match font.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfFont { font_ref: font }),
+        }
     }
 
     /// HPDF_UseCNSFonts() loads Chinese simplified fonts.
@@ -302,11 +357,13 @@ impl PdfDocument {
     ///
     /// API: HPDF_LoadPngImageFromFile
     ///
-    pub fn load_png_image_from_file(&self, filename: &str) -> PdfImage {
-        // TODO: Error handling.
+    pub fn load_png_image_from_file(&self, filename: &str) -> Result<PdfImage, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
         let image = unsafe { hb::HPDF_LoadPngImageFromFile(self.doc, filename.as_ptr()) };
-        PdfImage { image_ref: image }
+        match image.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfImage { image_ref: image }),
+        }
     }
 
     /// load_png_image_from_file2() loads an external PNG image file.
@@ -317,22 +374,26 @@ impl PdfDocument {
     ///
     /// API: HPDF_LoadPngImageFromFile2
     ///
-    pub fn load_png_image_from_file2(&self, filename: &str) -> PdfImage {
-        // TODO: Error handling.
+    pub fn load_png_image_from_file2(&self, filename: &str) -> Result<PdfImage, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
         let image = unsafe { hb::HPDF_LoadPngImageFromFile2(self.doc, filename.as_ptr()) };
-        PdfImage { image_ref: image }
+        match image.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfImage { image_ref: image }),
+        }
     }
 
     /// HPDF_LoadJpegImageFromFile() loads an external JPEG image file.
     ///
     /// API: HPDF_LoadJpegImageFromFile
     ///
-    pub fn load_jpeg_image_from_file(&self, filename: &str) -> PdfImage {
-        // TODO: Error handling.
+    pub fn load_jpeg_image_from_file(&self, filename: &str) -> Result<PdfImage, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
         let image = unsafe { hb::HPDF_LoadJpegImageFromFile(self.doc, filename.as_ptr()) };
-        PdfImage { image_ref: image }
+        match image.is_null() {
+            true => Err(HaruError::from(0)),
+            false => Ok(PdfImage { image_ref: image }),
+        }
     }
 }
 
