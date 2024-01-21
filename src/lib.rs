@@ -32,11 +32,13 @@ mod tests {
     use super::prelude::*;
 
     #[test]
-    fn it_works() {
+    fn it_works() -> Result<(), HaruError> {
         let doc = PdfDocument::new();
-        doc.add_page();
+        doc.add_page()?;
 
         doc.save_to_file("hello_world.pdf")
             .expect("Save to file failed");
+
+        Ok(())
     }
 }
