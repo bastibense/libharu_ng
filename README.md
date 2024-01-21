@@ -2,11 +2,33 @@
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bastibense/libharu_ng/master-build-test.yml)
 
-## ⚠️ EXPERIMENTAL WORK IN PROGRESS ⚠️
-
 ### ⭐ If you are interested in this project, [please star this repository on GitHub](https://github.com/bastibense/libharu_ng) to let us know! ⭐
 
-A Rust API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu))
+### ⚠️ This is Work In Progress. The API might change at any time. ⚠️
+
+## What is it?
+
+libharu_ng is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu)).
+
+Using libharu_ng, you can create PDF documents from Rust code.
+
+## Features
+
+libharu_ng supports most features of libharu:
+
+- Create PDF documents.
+- Add pages to the document.
+- Add text to the pages.
+  - Supporting text-wrapping into a given rectangle.
+  - Use built-in fonts or load custom fonts (TTF).
+- Add images to the pages.
+  - With support for JPEG and PNG images (including transparency).
+- Add shapes like lines, rectangles, circles, etc. to the pages.
+- Add annotations to the pages.
+- Add outlines to the document.
+- Add metadata to the document.
+
+For more information about the features, please see the [libharu documentation](http://libharu.org).
 
 ## Requirements
 
