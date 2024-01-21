@@ -4,6 +4,7 @@
 //!
 //! This crate provides a high level API for creating PDF files.
 //!
+
 mod haru_bindings;
 
 pub mod document;
@@ -30,8 +31,9 @@ mod tests {
     #[test]
     fn it_works() {
         let doc = PdfDocument::new();
-        let page = doc.add_page();
-        page.show_text("Hello World!");
-        doc.save_to_file("hello_world.pdf");
+        doc.add_page();
+
+        doc.save_to_file("hello_world.pdf")
+            .expect("Save to file failed");
     }
 }
