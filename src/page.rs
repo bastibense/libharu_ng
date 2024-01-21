@@ -38,7 +38,7 @@
 //! - [x] HPDF_Page_SetCMYKStroke()
 //! - [ ] HPDF_Page_SetDash()
 //! - [ ] HPDF_Page_SetExtGState()
-//! - [ ] HPDF_Page_SetFontAndSize()
+//! - [x] HPDF_Page_SetFontAndSize()
 //! - [x] HPDF_Page_SetGrayFill()
 //! - [x] HPDF_Page_SetGrayStroke()
 //! - [x] HPDF_Page_SetHorizontalScalling()
@@ -63,6 +63,7 @@
 use haru_types::LineCap;
 use haru_types::RenderingMode;
 
+use crate::font::PdfFont;
 use crate::haru_bindings as hb;
 use crate::haru_types;
 
@@ -283,7 +284,7 @@ impl PdfPage {
         self
     }
 
-    /// g_restore() restore the graphics state which is saved by HPDF_Page_GSave().
+    /// g_restore() restores the graphics state which is saved by g_save().
     ///
     /// API: HPDF_Page_GRestore
     ///
@@ -293,10 +294,10 @@ impl PdfPage {
     }
 
     /// g_save() saves the page's current graphics parameter to the stack.
-    /// An application can invoke HPDF_Page_GSave() up to 28 (???) and can
-    /// restore the saved parameter by invoking HPDF_Page_GRestore().
+    /// An application can invoke g_save() up to 28 (???) and can
+    /// restore the saved parameter by invoking g_restore().
     ///
-    /// The parameters that are saved by HPDF_Page_GSave() are:
+    /// The parameters that are saved by g_save() are:
     ///
     /// - Character Spacing
     /// - Clipping Path
@@ -357,6 +358,15 @@ impl PdfPage {
     ///
     pub fn set_cmyk_stroke(&self, c: f32, m: f32, y: f32, k: f32) -> &Self {
         unsafe { hb::HPDF_Page_SetCMYKStroke(self.page, c, m, y, k) };
+        self
+    }
+
+    /// HPDF_Page_SetFontAndSize() sets the type of font and size leading.
+    ///
+    /// API: HPDF_Page_SetFontAndSize
+    ///
+    pub fn set_font_and_size(&self, font: PdfFont, size: f32) -> &Self {
+        unsafe { hb::HPDF_Page_SetFontAndSize(self.page, font.font_ref, size) };
         self
     }
 
