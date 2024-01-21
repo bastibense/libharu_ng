@@ -2,9 +2,9 @@
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bastibense/libharu_ng/master-build-test.yml)
 
-### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
+#### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
 
-### ⚠️ This is Work In Progress. The API might change at any time. ⚠️
+#### ⚠️ This is Work In Progress. The API might change at any time. ⚠️
 
 ## What is it?
 
