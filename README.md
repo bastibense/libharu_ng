@@ -2,7 +2,7 @@
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bastibense/libharu_ng/master-build-test.yml)
 
-### ⭐ If you are interested in this project, [please star this repository on GitHub](https://github.com/bastibense/libharu_ng) to let us know! ⭐
+### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
 
 ### ⚠️ This is Work In Progress. The API might change at any time. ⚠️
 
@@ -23,6 +23,9 @@ libharu_ng supports most features of libharu:
   - Use built-in fonts or load custom fonts (TTF).
 - Add images to the pages.
   - With support for JPEG and PNG images (including transparency).
+- Use custom page sizes.
+- Save and restore the graphics state.
+- Set password protection for the document.
 - Add shapes like lines, rectangles, circles, etc. to the pages.
 - Add annotations to the pages.
 - Add outlines to the document.
