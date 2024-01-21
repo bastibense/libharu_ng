@@ -16,6 +16,7 @@
 //! - [ ] HPDF_Encoder_GetByteType()
 //! - [ ] HPDF_Encoder_GetUnicode()
 //! - [ ] HPDF_Encoder_GetWritingMode()
+//!
 
 use crate::{
     font::PdfFont,
