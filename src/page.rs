@@ -39,18 +39,18 @@
 //! - [ ] HPDF_Page_SetDash()
 //! - [ ] HPDF_Page_SetExtGState()
 //! - [ ] HPDF_Page_SetFontAndSize()
-//! - [ ] HPDF_Page_SetGrayFill()
-//! - [ ] HPDF_Page_SetGrayStroke()
-//! - [ ] HPDF_Page_SetHorizontalScalling()
-//! - [ ] HPDF_Page_SetLineCap()
-//! - [ ] HPDF_Page_SetLineJoin()
-//! - [ ] HPDF_Page_SetLineWidth()
-//! - [ ] HPDF_Page_SetMiterLimit()
+//! - [x] HPDF_Page_SetGrayFill()
+//! - [x] HPDF_Page_SetGrayStroke()
+//! - [x] HPDF_Page_SetHorizontalScalling()
+//! - [x] HPDF_Page_SetLineCap()
+//! - [x] HPDF_Page_SetLineJoin()
+//! - [x] HPDF_Page_SetLineWidth()
+//! - [x] HPDF_Page_SetMiterLimit()
 //! - [x] HPDF_Page_SetRGBFill()
 //! - [x] HPDF_Page_SetRGBStroke()
 //! - [x] HPDF_Page_SetTextLeading()
 //! - [x] HPDF_Page_SetTextMatrix()
-//! - [ ] HPDF_Page_SetTextRenderingMode()
+//! - [x] HPDF_Page_SetTextRenderingMode()
 //! - [x] HPDF_Page_SetTextRise()
 //! - [x] HPDF_Page_SetWordSpace()
 //! - [x] HPDF_Page_ShowText()
@@ -60,7 +60,11 @@
 //! - [x] HPDF_Page_TextOut()
 //! - [ ] HPDF_Page_TextRect()
 
+use haru_types::LineCap;
+use haru_types::RenderingMode;
+
 use crate::haru_bindings as hb;
+use crate::haru_types;
 
 /// The PDF Page API.
 ///
@@ -356,6 +360,69 @@ impl PdfPage {
         self
     }
 
+    /// HPDF_Page_SetGrayFill() sets the filling color.
+    ///
+    /// API: HPDF_Page_SetGrayFill
+    ///
+    pub fn set_gray_fill(&self, gray: f32) -> &Self {
+        unsafe { hb::HPDF_Page_SetGrayFill(self.page, gray) };
+        self
+    }
+
+    /// HPDF_Page_SetGrayStroke() sets the stroking color.
+    ///
+    /// API: HPDF_Page_SetGrayStroke
+    ///
+    pub fn set_gray_stroke(&self, gray: f32) -> &Self {
+        unsafe { hb::HPDF_Page_SetGrayStroke(self.page, gray) };
+        self
+    }
+
+    /// set_horizontal_scalling() sets the horizontal scalling (scaling) for text showing.
+    ///
+    /// API: HPDF_Page_SetHorizontalScalling
+    ///
+    pub fn set_horizontal_scalling(&self, value: f32) -> &Self {
+        unsafe { hb::HPDF_Page_SetHorizontalScalling(self.page, value) };
+        self
+    }
+
+    /// HPDF_Page_SetLineCap() sets the shape to be used at the ends of lines.
+    ///
+    /// API: HPDF_Page_SetLineCap
+    ///
+    pub fn set_line_cap(&self, line_cap: LineCap) -> &Self {
+        unsafe { hb::HPDF_Page_SetLineCap(self.page, line_cap as u32) };
+        self
+    }
+
+    /// set_line_join() Sets the line join style in the page.
+    ///
+    /// API: HPDF_Page_SetLineJoin
+    ///
+    pub fn set_line_join(&self, line_join: haru_types::LineJoin) -> &Self {
+        unsafe { hb::HPDF_Page_SetLineJoin(self.page, line_join as u32) };
+        self
+    }
+
+    /// set_miter_limit() sets the miter limit for the page.
+    ///
+    /// API: HPDF_Page_SetMiterLimit
+    ///
+    pub fn set_miter_limit(&self, miter_limit: f32) -> &Self {
+        unsafe { hb::HPDF_Page_SetMiterLimit(self.page, miter_limit) };
+        self
+    }
+
+    /// set_line_width() sets the width of the line used to stroke a path.
+    ///
+    /// API: HPDF_Page_SetLineWidth
+    ///
+    pub fn set_line_width(&self, line_width: f32) -> &Self {
+        unsafe { hb::HPDF_Page_SetLineWidth(self.page, line_width) };
+        self
+    }
+
     /// move_text_pos() changes the current text position, using the specified offset values.
     /// If the current text position is (x1, y1), the new text position
     /// will be (x1 + x, y1 + y).
@@ -422,6 +489,16 @@ impl PdfPage {
     ///
     pub fn set_height(&self, height: f32) -> &Self {
         unsafe { hb::HPDF_Page_SetHeight(self.page, height) };
+        self
+    }
+
+    /// HPDF_Page_SetTextRenderingMode() sets the text rendering mode.
+    /// The initial value of text rendering mode is HPDF_FILL.
+    ///
+    /// API: HPDF_Page_SetTextRenderingMode
+    ///
+    pub fn set_text_rendering_mode(&self, mode: RenderingMode) -> &Self {
+        unsafe { hb::HPDF_Page_SetTextRenderingMode(self.page, mode as u32) };
         self
     }
 

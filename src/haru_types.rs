@@ -348,3 +348,119 @@ impl From<u32> for HaruError {
         }
     }
 }
+
+/// The LineCap
+///
+pub enum LineCap {
+    /// The line is squared off at the endpoint of the path.
+    ButtEnd,
+    /// End of line becomes a semicircle whose center is at path endpoint.
+    RoundEnd,
+    /// Line continues beyond endpoint, goes on half the endpoint stroke width.
+    ProjectingSquareEnd,
+}
+
+impl LineCap {
+    pub fn to_hpdf_line_cap(&self) -> hb::HPDF_LineCap {
+        match self {
+            LineCap::ButtEnd => hb::_HPDF_LineCap_HPDF_BUTT_END,
+            LineCap::RoundEnd => hb::_HPDF_LineCap_HPDF_ROUND_END,
+            LineCap::ProjectingSquareEnd => hb::_HPDF_LineCap_HPDF_PROJECTING_SQUARE_END,
+        }
+    }
+}
+
+impl From<hb::HPDF_LineCap> for LineCap {
+    fn from(cap: hb::HPDF_LineCap) -> Self {
+        match cap {
+            hb::_HPDF_LineCap_HPDF_BUTT_END => LineCap::ButtEnd,
+            hb::_HPDF_LineCap_HPDF_ROUND_END => LineCap::RoundEnd,
+            hb::_HPDF_LineCap_HPDF_PROJECTING_SQUARE_END => LineCap::ProjectingSquareEnd,
+            _ => LineCap::ButtEnd,
+        }
+    }
+}
+
+/// The LineJoin
+///
+pub enum LineJoin {
+    /// The outer edges of the strokes for the two segments are extended until they meet at an angle, as in a picture frame.
+    MiterJoin,
+    /// An arc of a circle with a diameter equal to the line width is drawn around the point where the two segments meet, connecting the outer edges of the strokes for the two segments.
+    RoundJoin,
+    /// The two segments are finished with butt caps and the resulting notch beyond the ends of the segments is filled with a triangle.
+    BevelJoin,
+}
+
+impl LineJoin {
+    pub fn to_hpdf_line_join(&self) -> hb::HPDF_LineJoin {
+        match self {
+            LineJoin::MiterJoin => hb::_HPDF_LineJoin_HPDF_MITER_JOIN,
+            LineJoin::RoundJoin => hb::_HPDF_LineJoin_HPDF_ROUND_JOIN,
+            LineJoin::BevelJoin => hb::_HPDF_LineJoin_HPDF_BEVEL_JOIN,
+        }
+    }
+}
+
+impl From<hb::HPDF_LineJoin> for LineJoin {
+    fn from(join: hb::HPDF_LineJoin) -> Self {
+        match join {
+            hb::_HPDF_LineJoin_HPDF_MITER_JOIN => LineJoin::MiterJoin,
+            hb::_HPDF_LineJoin_HPDF_ROUND_JOIN => LineJoin::RoundJoin,
+            hb::_HPDF_LineJoin_HPDF_BEVEL_JOIN => LineJoin::BevelJoin,
+            _ => LineJoin::MiterJoin,
+        }
+    }
+}
+
+/// The RenderingMode
+///
+pub enum RenderingMode {
+    /// Fill text.
+    Fill,
+    /// Stroke text.
+    Stroke,
+    /// Fill, then stroke text.
+    FillStroke,
+    /// Neither fill nor stroke text (invisible).
+    Invisible,
+    /// Fill text and add to path for clipping.
+    FillClip,
+    /// Stroke text and add to path for clipping.
+    StrokeClip,
+    /// Fill, then stroke text and add to path for clipping.
+    FillStrokeClip,
+    /// Add text to path for clipping.
+    Clip,
+}
+
+impl RenderingMode {
+    pub fn to_hpdf_rendering_mode(&self) -> hb::HPDF_TextRenderingMode {
+        match self {
+            RenderingMode::Fill => hb::_HPDF_TextRenderingMode_HPDF_FILL,
+            RenderingMode::Stroke => hb::_HPDF_TextRenderingMode_HPDF_STROKE,
+            RenderingMode::FillStroke => hb::_HPDF_TextRenderingMode_HPDF_FILL_THEN_STROKE,
+            RenderingMode::Invisible => hb::_HPDF_TextRenderingMode_HPDF_INVISIBLE,
+            RenderingMode::FillClip => hb::_HPDF_TextRenderingMode_HPDF_FILL_CLIPPING,
+            RenderingMode::StrokeClip => hb::_HPDF_TextRenderingMode_HPDF_STROKE_CLIPPING,
+            RenderingMode::FillStrokeClip => hb::_HPDF_TextRenderingMode_HPDF_FILL_STROKE_CLIPPING,
+            RenderingMode::Clip => hb::_HPDF_TextRenderingMode_HPDF_CLIPPING,
+        }
+    }
+}
+
+impl From<hb::HPDF_TextRenderingMode> for RenderingMode {
+    fn from(mode: hb::HPDF_TextRenderingMode) -> Self {
+        match mode {
+            hb::_HPDF_TextRenderingMode_HPDF_FILL => RenderingMode::Fill,
+            hb::_HPDF_TextRenderingMode_HPDF_STROKE => RenderingMode::Stroke,
+            hb::_HPDF_TextRenderingMode_HPDF_FILL_THEN_STROKE => RenderingMode::FillStroke,
+            hb::_HPDF_TextRenderingMode_HPDF_INVISIBLE => RenderingMode::Invisible,
+            hb::_HPDF_TextRenderingMode_HPDF_FILL_CLIPPING => RenderingMode::FillClip,
+            hb::_HPDF_TextRenderingMode_HPDF_STROKE_CLIPPING => RenderingMode::StrokeClip,
+            hb::_HPDF_TextRenderingMode_HPDF_FILL_STROKE_CLIPPING => RenderingMode::FillStrokeClip,
+            hb::_HPDF_TextRenderingMode_HPDF_CLIPPING => RenderingMode::Clip,
+            _ => RenderingMode::Fill,
+        }
+    }
+}
