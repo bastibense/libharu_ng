@@ -1,8 +1,8 @@
 # libharu_ng
 
-# ⚠️ EXPERIMENTAL WORK IN PROGRESS ⚠️
+## ⚠️ EXPERIMENTAL WORK IN PROGRESS ⚠️
 
-# ⭐ If you are interested in this project, please star this repository on GitHub to let us know! ⭐
+### ⭐ If you are interested in this project, please star this repository on GitHub to let us know! ⭐
 
 A Rust API for [libharu](http://libaru.org/).
 
