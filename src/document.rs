@@ -309,8 +309,8 @@ impl PdfDocument {
         PdfImage { image_ref: image }
     }
 
-    /// HPDF_LoadPngImageFromFile2() loads an external PNG image file.
-    /// Unlike HPDF_LoadPngImageFromFile(), HPDF_LoadPngImageFromFile2()
+    /// load_png_image_from_file2() loads an external PNG image file.
+    /// Unlike load_png_image_from_file(), load_png_image_from_file2()
     /// does not load all the data immediately (only size and color properties
     /// are loaded). The main data are loaded just before the image object
     /// is written to PDF, and the loaded data are deleted immediately.
