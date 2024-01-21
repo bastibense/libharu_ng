@@ -1,27 +1,22 @@
-use libharu_ng::{self, document::PdfDocument};
+use libharu_ng::{self, document::PdfDocument, haru_types::HaruError};
 
 /// Hello World example.
 ///
 /// This example will create a new PDF file named `hello_world.pdf` in the current directory.
 ///
 
-fn main() {
+fn main() -> Result<(), HaruError> {
     let doc = PdfDocument::new();
+    let fnt = doc.get_font("Helvetica", None)?;
 
-    let page = doc.add_page();
+    doc.add_page()?
+        .begin_text()?
+        .move_text_pos(220.0, 20.0)?
+        .set_font_and_size(fnt, 24.0)?
+        .show_text("Hello World")?
+        .end_text()?;
 
-    page.begin_text().expect("Begin text failed");
+    doc.save_to_file("./test.pdf")?;
 
-    page.move_text_pos(220.0, 20.0)
-        .expect("Move text pos failed");
-
-    let fnt = doc.get_font("Helvetica", None);
-    page.set_font_and_size(fnt, 24.0)
-        .expect("Set font and size failed");
-
-    page.show_text("Hello World").expect("Show text failed");
-
-    page.end_text().expect("End text failed");
-
-    doc.save_to_file("./test.pdf").expect("Save to file failed");
+    Ok(())
 }
