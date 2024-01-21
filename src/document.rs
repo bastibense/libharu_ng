@@ -7,9 +7,16 @@ use crate::page::PdfPage;
 
 /// The PDF document.
 ///
+#[derive(Debug)]
 pub struct PdfDocument {
     /// The reference to the haru document.
     pub doc: hb::HPDF_Doc,
+}
+
+impl Default for PdfDocument {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl PdfDocument {

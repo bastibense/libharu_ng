@@ -22,7 +22,7 @@
 //! - [x] HPDF_Page_Eoclip()
 //! - [x] HPDF_Page_Eofill()
 //! - [x] HPDF_Page_EofillStroke()
-//! - [x] HPDF_Page_ExecuteXObject()
+//! - [ ] HPDF_Page_ExecuteXObject()
 //! - [x] HPDF_Page_Fill()
 //! - [x] HPDF_Page_FillStroke()
 //! - [x] HPDF_Page_GRestore()
@@ -62,7 +62,7 @@
 
 use crate::haru_bindings as hb;
 
-/// The PDF Page object.
+/// The PDF Page API.
 ///
 pub struct PdfPage {
     /// The reference to the haru page.
@@ -258,18 +258,6 @@ impl PdfPage {
     ///
     pub fn eo_fill_stroke(&self) -> &Self {
         unsafe { hb::HPDF_Page_EofillStroke(self.page) };
-        self
-    }
-
-    /// execute_xobject() draws the XObject using the current graphics context. This is used by draw_image()
-    /// to draw the HPDF_Image by first calling HPDF_Page_GSave() and HPDF_Page_Concat() and then
-    /// calling HPDF_Page_GRestore() after HPDF_Page_ExecuteXObject(). It could be used manually
-    /// to rotate an image.
-    ///
-    /// API: HPDF_Page_ExecuteXObject
-    ///
-    pub fn execute_xobject(&self, obj: hb::HPDF_XObject) -> &Self {
-        unsafe { hb::HPDF_Page_ExecuteXObject(self.page, obj) };
         self
     }
 
