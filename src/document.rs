@@ -1,3 +1,6 @@
+//!  PDF-Document related structs and functions.
+//!
+
 use crate::haru_bindings as hb;
 use crate::haru_types::{CompressionMode, PageLayout, PageMode};
 use crate::page::PdfPage;

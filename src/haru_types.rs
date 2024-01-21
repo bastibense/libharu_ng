@@ -1,3 +1,6 @@
+//! This module contains types that are used in the library.
+//!
+
 use crate::haru_bindings as hb;
 
 pub enum PageMode {
@@ -89,10 +92,15 @@ impl InfoAttr {
 }
 
 pub enum CompressionMode {
+    /// No compression.
     None,
+    /// Compress the contents stream of the page.
     Text,
+    /// Compress the streams of the image objects.
     Image,
+    /// Other stream datas (fonts, cmaps and so on) are compressed.
     Metadata,
+    /// All stream datas are compressed (HPDF_COMP_TEXT | HPDF_COMP_IMAGE | HPDF_COMP_METADATA).
     All,
 }
 

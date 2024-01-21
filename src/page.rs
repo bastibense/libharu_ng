@@ -1,3 +1,6 @@
+//!  PDF-Page related structs and functions.
+//!
+
 use crate::haru_bindings as hb;
 
 /// Th PDF Page object.
