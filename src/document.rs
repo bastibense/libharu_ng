@@ -2,7 +2,7 @@
 //!
 
 use crate::haru_bindings as hb;
-use crate::haru_types::{CompressionMode, PageLayout, PageMode};
+use crate::haru_types::{CompressionMode, HaruError, PageLayout, PageMode};
 use crate::page::PdfPage;
 
 /// The PDF document.
@@ -55,9 +55,11 @@ impl PdfDocument {
     }
 
     /// Returns the last error code of specified document object.
+    /// TODO: Should not cast int type?
     ///
-    pub fn get_error(&self) -> hb::HPDF_STATUS {
-        unsafe { hb::HPDF_GetError(self.doc) }
+    pub fn get_error(&self) -> HaruError {
+        let error = unsafe { hb::HPDF_GetError(self.doc) };
+        HaruError::from(error as u32)
     }
 
     /// Create a new page.

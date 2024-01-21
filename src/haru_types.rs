@@ -116,6 +116,8 @@ impl CompressionMode {
     }
 }
 
+/// The error type for libharu.
+///
 #[derive(Debug)]
 pub enum HaruError {
     ArrayCountErr,

@@ -7,6 +7,7 @@
 mod haru_bindings;
 
 pub mod document;
+pub mod font;
 pub mod haru_types;
 pub mod page;
 
