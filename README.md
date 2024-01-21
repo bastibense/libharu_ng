@@ -4,25 +4,16 @@
 
 ### ⭐ If you are interested in this project, please star this repository on GitHub to let us know! ⭐
 
-A Rust API for [libharu](http://libaru.org/).
+A Rust API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu))
 
 ## Requirements
 
-- System provided [libharu](http://libharu.org/) (tested with version 2.4).
+- Installed [libharu](http://libharu.org/) (tested with version 2.4).
+  - See included Dockerfile for reference.
 
 ## Usage
 
-To use `libharu` in your Rust program add the following to your `Cargo.toml` file:
-
-```toml
-[dependencies]
-libharu_ng = "2.4.0"
-```
-
-or
-
-on the command line:
-
+To use `libharu` in your Rust project, run the command line, in your Rust project directory:
 ```bash
 $ cargo add libharu_ng
 ```
