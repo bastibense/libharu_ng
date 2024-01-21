@@ -44,10 +44,12 @@ impl PdfFont {
     /// in a specific font. Actual width of the character on the page
     /// can be calculated as follows:
     ///
-    /// ```rust,ignore
+    /// ```c
     /// char_width = HPDF_Font_GetUnicodeWidth (font, UNICODE);
     /// float actual_width = char_width * FONT_SIZE / 1000;
     /// ````
+    ///
+    /// FIXME: Replace ex. C code with Rust code.
     ///
     pub fn get_unicode_width(&self, code: u16) -> i32 {
         unsafe { hb::HPDF_Font_GetUnicodeWidth(self.font, code) }
