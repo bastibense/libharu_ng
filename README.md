@@ -16,7 +16,7 @@ Using libharu_ng, you can create PDF documents from Rust code.
 
 libharu_ng supports most features of libharu:
 
-- Create PDF documents.$$
+- Create PDF documents.
 - Add pages to the document.
 - Add text to the pages.
   - Supporting text-wrapping into a given rectangle.
