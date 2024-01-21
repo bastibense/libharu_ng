@@ -42,12 +42,16 @@ impl Default for PdfDocument {
 impl PdfDocument {
     /// Create an instance of a document object and initialize it.
     ///
+    /// API: HPDF_New
+    ///
     pub fn new() -> Self {
         let doc = unsafe { hb::HPDF_New(None, core::ptr::null_mut()) };
         Self { doc }
     }
 
-    /// HPDF_SetPageMode() sets how the document should be displayed.
+    /// set_page_mode() sets how the document should be displayed.
+    ///
+    /// API: HPDF_SetPageMode
     ///
     pub fn set_page_mode(&self, mode: PageMode) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_SetPageMode(self.doc, mode.to_hpdf_mode()) };
@@ -57,7 +61,9 @@ impl PdfDocument {
         }
     }
 
-    /// HPDF_GetPageLayout() returns the current setting for page mode.
+    /// get_page_mode() returns the current setting for page mode.
+    ///
+    /// API: HPDF_GetPageMode
     ///
     pub fn get_page_mode(&self) -> PageMode {
         let mode = unsafe { hb::HPDF_GetPageMode(self.doc) };
@@ -84,8 +90,10 @@ impl PdfDocument {
         PdfFont { font_ref: font }
     }
 
-    /// HPDF_SetPageLayout() sets how the page should be displayed. If this attribute
+    /// set_page_layout() sets how the page should be displayed. If this attribute
     /// is not set, the setting of the viewer application is used.
+    ///
+    /// API: HPDF_SetPageLayout
     ///
     pub fn set_page_layout(&self, layout: PageLayout) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_SetPageLayout(self.doc, layout.to_hpdf_layout()) };
@@ -95,14 +103,16 @@ impl PdfDocument {
         }
     }
 
-    /// HPDF_GetPageLayout() returns the current setting for page layout.
+    /// get_page_layout() returns the current setting for page layout.
+    ///
+    /// API: HPDF_GetPageLayout
     ///
     pub fn get_page_layout(&self) -> PageLayout {
         let layout = unsafe { hb::HPDF_GetPageLayout(self.doc) };
         PageLayout::from_hpdf_layout(layout)
     }
 
-    /// Save the PDF document to a file.
+    /// save_to_file() saves the PDF document to a file.
     ///
     pub fn save_to_file(&self, filename: &str) -> Result<&Self, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
