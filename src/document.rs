@@ -2,6 +2,7 @@
 //!
 //! ## Implementation Status
 //!
+//! ### Fonts
 //! - [x] HPDF_LoadType1FontFromFile()
 //! - [x] HPDF_LoadTTFontFromFile()
 //! - [x] HPDF_LoadTTFontFromFile2()
@@ -10,6 +11,11 @@
 //! - [x] HPDF_UseJPFonts()
 //! - [x] HPDF_UseKRFonts()
 //!
+//! ### Encodings
+//! - [ ] HPDF_Encoder_GetType()
+//! - [ ] HPDF_Encoder_GetByteType()
+//! - [ ] HPDF_Encoder_GetUnicode()
+//! - [ ] HPDF_Encoder_GetWritingMode()
 
 use crate::{
     font::PdfFont,
