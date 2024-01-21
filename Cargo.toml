@@ -1,7 +1,22 @@
 [package]
+version = "0.0.1+1"
+
 name = "libharu_ng"
-description = "A modern Rust wrapper for libharu."
-version = "2.4.4+1"
+description = "WIP - A Rust wrapper for libharu."
+authors = ["Bastian Bense <bb@neosw.de>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/bastibense/libharu_ng"
+homepage = "https://github.com/bastibense/libharu_ng"
+categories = [
+  "pdf",
+  "libharu",
+  "pdf-generation",
+  "pdf-writer",
+  "pdflib",
+  "haru",
+]
+
 edition = "2021"
 build = "build.rs"
 
