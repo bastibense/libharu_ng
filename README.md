@@ -6,7 +6,7 @@ A Rust API for [libharu](http://libaru.org/).
 
 ## Requirements
 
-- [libharu](http://libharu.org/) (tested with version 2.4)
+- System provided [libharu](http://libharu.org/) (tested with version 2.4).
 
 ## Usage
 
@@ -14,7 +14,7 @@ To use `libharu` in your Rust program add the following to your `Cargo.toml` fil
 
 ```toml
 [dependencies]
-libharu_ng = "1"
+libharu_ng = "2.4.0"
 ```
 
 or

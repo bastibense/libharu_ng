@@ -1,7 +1,7 @@
 [package]
 name = "libharu_ng"
-description = "A modern Rust wrapper for libharu"
-version = "2.4.4"
+description = "A modern Rust wrapper for libharu."
+version = "2.4.4+1"
 edition = "2021"
 build = "build.rs"
 

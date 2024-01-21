@@ -10,7 +10,7 @@ checksum = "080e9890a082662b09c1ad45f567faeeb47f22b5fb23895fbe1e651e718e25ca"
 
 [[package]]
 name = "libharu_ng"
-version = "2.4.4"
+version = "2.4.4+1"
 dependencies = [
  "anyhow",
 ]
