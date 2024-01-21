@@ -58,11 +58,14 @@
 //! - [x] HPDF_Page_ShowTextNextLineEx()
 //! - [x] HPDF_Page_Stroke()
 //! - [x] HPDF_Page_TextOut()
-//! - [ ] HPDF_Page_TextRect()
+//! - [x] HPDF_Page_TextRect()
+
+use std::ptr;
 
 use haru_types::HaruError;
 use haru_types::LineCap;
 use haru_types::RenderingMode;
+use haru_types::TextAlign;
 
 use crate::font::PdfFont;
 use crate::haru_bindings as hb;
@@ -829,6 +832,38 @@ impl PdfPage {
     pub fn text_out(&self, x: f32, y: f32, text: &str) -> Result<&Self, HaruError> {
         let text = std::ffi::CString::new(text).unwrap();
         let result = unsafe { hb::HPDF_Page_TextOut(self.page, x, y, text.as_ptr()) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// HPDF_Page_TextRext() prints the text inside the specified region.
+    ///
+    /// API: HPDF_Page_TextRect
+    ///
+    pub fn text_rect(
+        &self,
+        left: f32,
+        top: f32,
+        right: f32,
+        bottom: f32,
+        text: &str,
+        align: TextAlign,
+    ) -> Result<&Self, HaruError> {
+        let text = std::ffi::CString::new(text).unwrap();
+        let result = unsafe {
+            hb::HPDF_Page_TextRect(
+                self.page,
+                left,
+                top,
+                right,
+                bottom,
+                text.as_ptr(),
+                align.to_hpdf_text_align(),
+                ptr::null_mut(),
+            )
+        };
         match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),

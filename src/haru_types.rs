@@ -464,3 +464,39 @@ impl From<hb::HPDF_TextRenderingMode> for RenderingMode {
         }
     }
 }
+
+/// Alignment of the text.
+///
+pub enum TextAlign {
+    /// The text is aligned to left.
+    Left,
+    /// The text is aligned to right.
+    Right,
+    /// The text is aligned to center.
+    Center,
+    /// Add spaces between the words to justify both left and right side.
+    Justify,
+}
+
+impl TextAlign {
+    pub fn to_hpdf_text_align(&self) -> hb::HPDF_TextAlignment {
+        match self {
+            TextAlign::Left => hb::_HPDF_TextAlignment_HPDF_TALIGN_LEFT,
+            TextAlign::Right => hb::_HPDF_TextAlignment_HPDF_TALIGN_RIGHT,
+            TextAlign::Center => hb::_HPDF_TextAlignment_HPDF_TALIGN_CENTER,
+            TextAlign::Justify => hb::_HPDF_TextAlignment_HPDF_TALIGN_JUSTIFY,
+        }
+    }
+}
+
+impl From<hb::HPDF_TextAlignment> for TextAlign {
+    fn from(align: hb::HPDF_TextAlignment) -> Self {
+        match align {
+            hb::_HPDF_TextAlignment_HPDF_TALIGN_LEFT => TextAlign::Left,
+            hb::_HPDF_TextAlignment_HPDF_TALIGN_RIGHT => TextAlign::Right,
+            hb::_HPDF_TextAlignment_HPDF_TALIGN_CENTER => TextAlign::Center,
+            hb::_HPDF_TextAlignment_HPDF_TALIGN_JUSTIFY => TextAlign::Justify,
+            _ => TextAlign::Left,
+        }
+    }
+}
