@@ -81,7 +81,7 @@ impl PdfDocument {
         }
 
         let font = unsafe { hb::HPDF_GetFont(self.doc, fontname.as_ptr(), core::ptr::null_mut()) };
-        return PdfFont { font_ref: font };
+        PdfFont { font_ref: font }
     }
 
     /// HPDF_SetPageLayout() sets how the page should be displayed. If this attribute
