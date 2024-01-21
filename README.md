@@ -2,7 +2,7 @@
 
 ## ⚠️ EXPERIMENTAL WORK IN PROGRESS ⚠️
 
-### ⭐ If you are interested in this project, please star this repository on GitHub to let us know! ⭐
+### ⭐ If you are interested in this project, [please star this repository on GitHub](https://github.com/bastibense/libharu_ng) to let us know! ⭐
 
 A Rust API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu))
 
@@ -14,6 +14,7 @@ A Rust API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https:
 ## Usage
 
 To use `libharu` in your Rust project, run the command line, in your Rust project directory:
+
 ```bash
 $ cargo add libharu_ng
 ```
