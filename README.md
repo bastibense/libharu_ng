@@ -1,6 +1,8 @@
 # libharu_ng
 
-# DO _NOT_ USE - EXPERIMENTAL WORK IN PROGRESS
+# ⚠️ DO _NOT_ USE - EXPERIMENTAL WORK IN PROGRESS
+
+# ⚠️ THIS CRATE MIGHT BE REMOVED IN THE FUTURE
 
 A Rust API for [libharu](http://libaru.org/).
 
