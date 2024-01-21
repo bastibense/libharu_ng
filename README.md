@@ -21,6 +21,28 @@ To use `libharu` in your Rust project, run the command line, in your Rust projec
 $ cargo add libharu_ng
 ```
 
+## Example
+
+```rust
+use libharu_ng::prelude::*;
+
+fn main() -> Result<(), HaruError> {
+    let doc = PdfDocument::new();
+    let fnt = doc.get_font("Helvetica", None)?;
+
+    doc.add_page()?
+        .begin_text()?
+        .move_text_pos(220.0, 20.0)?
+        .set_font_and_size(fnt, 24.0)?
+        .show_text("Hello World")?
+        .end_text()?;
+
+    doc.save_to_file("./test.pdf")?;
+
+    Ok(())
+}
+```
+
 # Contributing
 
 Contributions are welcome. Please open an issue before submitting a pull request.

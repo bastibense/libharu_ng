@@ -1,4 +1,4 @@
-use libharu_ng::{self, document::PdfDocument, haru_types::HaruError};
+use libharu_ng::prelude::*;
 
 /// Hello World example.
 ///
