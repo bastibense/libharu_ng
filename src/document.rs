@@ -1,4 +1,5 @@
 use crate::haru_bindings as hb;
+use crate::haru_types::{CompressionMode, PageLayout, PageMode};
 use crate::page::PdfPage;
 
 /// The PDF document.
@@ -71,70 +72,24 @@ impl PdfDocument {
             hb::HPDF_SetInfoAttr(self.doc, hb::_HPDF_InfoType_HPDF_INFO_TITLE, title.as_ptr())
         };
     }
+
+    /// HPDF_SetPassword() sets a password for the document. If the password is set, document contents are encrypted.
+    ///
+    pub fn set_password(&self, owner_passwd: &str, user_passwd: &str) {
+        let owner_passwd = std::ffi::CString::new(owner_passwd).unwrap();
+        let user_passwd = std::ffi::CString::new(user_passwd).unwrap();
+        unsafe { hb::HPDF_SetPassword(self.doc, owner_passwd.as_ptr(), user_passwd.as_ptr()) };
+    }
+
+    /// HPDF_SetCompressionMode() set the mode of compression.
+    ///
+    pub fn set_compression_mode(&self, mode: CompressionMode) {
+        unsafe { hb::HPDF_SetCompressionMode(self.doc, mode.to_hpdf_compression()) };
+    }
 }
 
 impl Drop for PdfDocument {
     fn drop(&mut self) {
         unsafe { hb::HPDF_Free(self.doc) };
-    }
-}
-
-pub enum PageMode {
-    UseNone,
-    UseOutline,
-    UseThumbs,
-    FullScreen,
-}
-
-impl PageMode {
-    fn to_hpdf_mode(&self) -> hb::HPDF_PageMode {
-        match self {
-            PageMode::UseNone => hb::_HPDF_PageMode_HPDF_PAGE_MODE_USE_NONE,
-            PageMode::UseOutline => hb::_HPDF_PageMode_HPDF_PAGE_MODE_USE_OUTLINE,
-            PageMode::UseThumbs => hb::_HPDF_PageMode_HPDF_PAGE_MODE_USE_THUMBS,
-            PageMode::FullScreen => hb::_HPDF_PageMode_HPDF_PAGE_MODE_FULL_SCREEN,
-        }
-    }
-
-    fn from_hpdf_mode(mode: hb::HPDF_PageMode) -> Self {
-        match mode {
-            hb::_HPDF_PageMode_HPDF_PAGE_MODE_USE_NONE => PageMode::UseNone,
-            hb::_HPDF_PageMode_HPDF_PAGE_MODE_USE_OUTLINE => PageMode::UseOutline,
-            hb::_HPDF_PageMode_HPDF_PAGE_MODE_USE_THUMBS => PageMode::UseThumbs,
-            hb::_HPDF_PageMode_HPDF_PAGE_MODE_FULL_SCREEN => PageMode::FullScreen,
-            _ => PageMode::UseNone,
-        }
-    }
-}
-
-pub enum PageLayout {
-    /// Only one page is displayed.
-    Single,
-    /// Display the pages in one column.
-    OneColumn,
-    /// Display in two columns. Odd page number is displayed left.
-    TwoColumnLeft,
-    ///  Display in two columns. Odd page number is displayed right.
-    TwoColumnRight,
-}
-
-impl PageLayout {
-    fn to_hpdf_layout(&self) -> hb::HPDF_PageLayout {
-        match self {
-            PageLayout::Single => hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_SINGLE,
-            PageLayout::OneColumn => hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_ONE_COLUMN,
-            PageLayout::TwoColumnLeft => hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_TWO_COLUMN_LEFT,
-            PageLayout::TwoColumnRight => hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_TWO_COLUMN_RIGHT,
-        }
-    }
-
-    fn from_hpdf_layout(layout: hb::HPDF_PageLayout) -> Self {
-        match layout {
-            hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_SINGLE => PageLayout::Single,
-            hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_ONE_COLUMN => PageLayout::OneColumn,
-            hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_TWO_COLUMN_LEFT => PageLayout::TwoColumnLeft,
-            hb::_HPDF_PageLayout_HPDF_PAGE_LAYOUT_TWO_COLUMN_RIGHT => PageLayout::TwoColumnRight,
-            _ => PageLayout::Single,
-        }
     }
 }

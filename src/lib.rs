@@ -1,11 +1,13 @@
 mod haru_bindings;
 
 pub mod document;
+pub mod haru_types;
 pub mod page;
 
 pub mod prelude {
-    pub use crate::document::PdfDocument;
-    pub use crate::page::PdfPage;
+    pub use crate::document::*;
+    pub use crate::haru_types::*;
+    pub use crate::page::*;
 }
 
 /// The error callback function type.
