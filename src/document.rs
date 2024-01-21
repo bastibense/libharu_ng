@@ -22,6 +22,7 @@ use crate::{
     font::PdfFont,
     haru_bindings as hb,
     haru_types::{CompressionMode, HaruError, PageLayout, PageMode},
+    image::PdfImage,
     page::PdfPage,
 };
 
@@ -295,6 +296,43 @@ impl PdfDocument {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
+    }
+
+    /// load_png_image_from_file() loads an external PNG image file.
+    ///
+    /// API: HPDF_LoadPngImageFromFile
+    ///
+    pub fn load_png_image_from_file(&self, filename: &str) -> PdfImage {
+        // TODO: Error handling.
+        let filename = std::ffi::CString::new(filename).unwrap();
+        let image = unsafe { hb::HPDF_LoadPngImageFromFile(self.doc, filename.as_ptr()) };
+        PdfImage { image_ref: image }
+    }
+
+    /// HPDF_LoadPngImageFromFile2() loads an external PNG image file.
+    /// Unlike HPDF_LoadPngImageFromFile(), HPDF_LoadPngImageFromFile2()
+    /// does not load all the data immediately (only size and color properties
+    /// are loaded). The main data are loaded just before the image object
+    /// is written to PDF, and the loaded data are deleted immediately.
+    ///
+    /// API: HPDF_LoadPngImageFromFile2
+    ///
+    pub fn load_png_image_from_file2(&self, filename: &str) -> PdfImage {
+        // TODO: Error handling.
+        let filename = std::ffi::CString::new(filename).unwrap();
+        let image = unsafe { hb::HPDF_LoadPngImageFromFile2(self.doc, filename.as_ptr()) };
+        PdfImage { image_ref: image }
+    }
+
+    /// HPDF_LoadJpegImageFromFile() loads an external JPEG image file.
+    ///
+    /// API: HPDF_LoadJpegImageFromFile
+    ///
+    pub fn load_jpeg_image_from_file(&self, filename: &str) -> PdfImage {
+        // TODO: Error handling.
+        let filename = std::ffi::CString::new(filename).unwrap();
+        let image = unsafe { hb::HPDF_LoadJpegImageFromFile(self.doc, filename.as_ptr()) };
+        PdfImage { image_ref: image }
     }
 }
 

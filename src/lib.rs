@@ -10,13 +10,16 @@ mod haru_bindings;
 pub mod document;
 pub mod font;
 pub mod haru_types;
+pub mod image;
 pub mod page;
 
 /// The prelude module.
 ///
 pub mod prelude {
     pub use crate::document::*;
+    pub use crate::font::*;
     pub use crate::haru_types::*;
+    pub use crate::image::*;
     pub use crate::page::*;
 }
 
