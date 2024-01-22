@@ -86,12 +86,14 @@ use std::ptr;
 
 use haru_types::HaruError;
 use haru_types::LineCap;
+use haru_types::Rect;
 use haru_types::RenderingMode;
 use haru_types::TextAlign;
 
 use crate::font::PdfFont;
 use crate::haru_bindings as hb;
 use crate::haru_types;
+use crate::haru_types::ImageFit;
 use crate::prelude::PdfImage;
 
 /// The PDF Page API.
@@ -808,16 +810,115 @@ impl PdfPage {
     ///
     /// API: HPDF_Page_DrawImage
     ///
-    pub fn draw_image(
+    pub fn draw_image(&self, image: &PdfImage, rect: &Rect) -> Result<&Self, HaruError> {
+        let result = unsafe {
+            hb::HPDF_Page_DrawImage(
+                self.page,
+                image.image_ref,
+                rect.x,
+                rect.y,
+                rect.width,
+                rect.height,
+            )
+        };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// fit_image() draws an image into a given rectangle, fitted using the fit parameter.
+    ///
+    pub fn draw_image_fit(
         &self,
         image: &PdfImage,
-        x: f32,
-        y: f32,
-        width: f32,
-        height: f32,
+        rect: Rect,
+        fit: ImageFit,
+        align_h: haru_types::ImageAlign,
+        align_v: haru_types::ImageAlign,
     ) -> Result<&Self, HaruError> {
-        let result =
-            unsafe { hb::HPDF_Page_DrawImage(self.page, image.image_ref, x, y, width, height) };
+        // get the raw size of the input image
+
+        let img_width = image.get_width()? as f32;
+        let img_height = image.get_height()? as f32;
+        println!("image size: {}x{}", img_width, img_height);
+
+        let mut effective_x = rect.x;
+        let mut effective_y = rect.y;
+        let mut effective_width = rect.width;
+        let mut effective_height = rect.height;
+
+        // Make sure the effective width and height are not larger than the
+        // input image size. Depending on the fit parameter, we may need to
+        // adjust the effective width and height.
+        match fit {
+            ImageFit::Fill => {}
+            ImageFit::FitWidth => {
+                // fit the image into the rectangle width
+                let ratio = rect.width / img_width;
+                effective_width = img_width * ratio;
+                effective_height = img_height * ratio;
+            }
+            ImageFit::FitHeight => {
+                // fit the image into the rectangle height
+                let ratio = rect.height / img_height;
+                effective_width = img_width * ratio;
+                effective_height = img_height * ratio;
+            }
+            ImageFit::FitBoth => {
+                // fit the image into the rectangle
+                let width_ratio = rect.width / img_width;
+                let height_ratio = rect.height / img_height;
+                let ratio = width_ratio.min(height_ratio);
+                effective_width = img_width * ratio;
+                effective_height = img_height * ratio;
+            }
+        }
+
+        // Calculate horizontal/X position depending on align_h.
+        match align_h {
+            // Align left
+            haru_types::ImageAlign::Start => {
+                // x stays the same
+            }
+            // Align right
+            haru_types::ImageAlign::End => {
+                effective_x = rect.x + rect.width - effective_width;
+            }
+            // Align center
+            haru_types::ImageAlign::Center => {
+                effective_x = rect.x + (rect.width - effective_width) / 2.0;
+            }
+        }
+
+        // Calculate vertical/Y position depending on align_v.
+        match align_v {
+            // Align bottom
+            haru_types::ImageAlign::Start => {
+                // y stays the same
+            }
+            // Align top
+            haru_types::ImageAlign::End => {
+                effective_y = rect.y + rect.height - effective_height;
+            }
+            // Align center
+            haru_types::ImageAlign::Center => {
+                effective_y = rect.y + (rect.height - effective_height) / 2.0;
+            }
+        }
+
+        // Draw
+        let result = unsafe {
+            hb::HPDF_Page_DrawImage(
+                self.page,
+                image.image_ref,
+                effective_x,
+                effective_y,
+                effective_width,
+                effective_height,
+            )
+        };
+
         match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),

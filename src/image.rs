@@ -23,7 +23,7 @@
 //! The image struct and related functions.
 //!
 
-use crate::haru_bindings as hb;
+use crate::{haru_bindings as hb, prelude::HaruError};
 
 /// The image object.
 ///
@@ -31,4 +31,30 @@ use crate::haru_bindings as hb;
 pub struct PdfImage {
     /// The reference to the haru image.
     pub image_ref: hb::HPDF_Image,
+}
+
+impl PdfImage {
+    /// get_width() returns the width of the image.
+    ///
+    /// Api: HPDF_Image_GetWidth
+    ///
+    pub fn get_width(&self) -> Result<u32, HaruError> {
+        let result = unsafe { hb::HPDF_Image_GetWidth(self.image_ref) };
+        match result {
+            0 => Err(HaruError::from(0)),
+            _ => Ok(result),
+        }
+    }
+
+    /// get_height() returns the height of the image.
+    ///
+    /// Api: HPDF_Image_GetHeight
+    ///
+    pub fn get_height(&self) -> Result<u32, HaruError> {
+        let result = unsafe { hb::HPDF_Image_GetHeight(self.image_ref) };
+        match result {
+            0 => Err(HaruError::from(0)),
+            _ => Ok(result),
+        }
+    }
 }

@@ -1,15 +1,15 @@
 // Copyright (c) 2022 Bastian Bense
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -17,7 +17,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-// 
+//
 // Contact: Bastian Bense, bb@neosw.de
 
 //! This module contains types that are used in the library.
@@ -519,6 +519,51 @@ impl From<hb::HPDF_TextAlignment> for TextAlign {
             hb::_HPDF_TextAlignment_HPDF_TALIGN_CENTER => TextAlign::Center,
             hb::_HPDF_TextAlignment_HPDF_TALIGN_JUSTIFY => TextAlign::Justify,
             _ => TextAlign::Left,
+        }
+    }
+}
+
+/// ImageFit
+///
+pub enum ImageFit {
+    /// Fill the entire rect, possibly distorting the image.
+    Fill,
+    /// Fit the image to the page width.
+    FitWidth,
+    /// Fit the image to the page height.
+    FitHeight,
+    /// Fit the image to the bounding box.
+    FitBoth,
+}
+
+/// ImageAlign
+///
+pub enum ImageAlign {
+    /// Align the image to the left/bottom
+    Start,
+    /// Align the image to the center.
+    Center,
+    /// Align the image to the right/top.
+    End,
+}
+
+/// Object Rect Type
+///
+#[derive(Debug)]
+pub struct Rect {
+    pub x: f32,
+    pub y: f32,
+    pub width: f32,
+    pub height: f32,
+}
+
+impl Rect {
+    pub fn new(x: f32, y: f32, width: f32, height: f32) -> Self {
+        Self {
+            x,
+            y,
+            width,
+            height,
         }
     }
 }
