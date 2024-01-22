@@ -23,6 +23,7 @@ WORKDIR /app
 
 # Copy source code
 #
+COPY libharu libharu
 COPY src src
 COPY Cargo.toml Cargo.lock build.rs ./
 
