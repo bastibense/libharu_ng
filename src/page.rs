@@ -690,6 +690,30 @@ impl PdfPage {
         }
     }
 
+    /// Rotate current matrix
+    ///
+    pub fn mtrx_rotate(&self, degrees: f32) -> Result<&Self, HaruError> {
+        let x = degrees.to_radians();
+
+        let result = unsafe {
+            hb::HPDF_Page_Concat(self.page, x.cos(), x.sin(), -x.sin(), x.cos(), 0.0, 0.0)
+        };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// Translate current matrix
+    ///
+    pub fn mtrx_translate(&self, x: f32, y: f32) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_Page_Concat(self.page, 1.0, 0.0, 0.0, 1.0, x, y) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
     /// get_width() returns the width of the page.
     ///
     /// API: HPDF_Page_GetWidth
