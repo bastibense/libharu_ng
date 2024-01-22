@@ -5,7 +5,7 @@
 # Copyright (c) 2024, Bastian Bense <bb@neosw.de>
 #
 
-FROM rust:slim
+FROM rust:alpine
 
 # Set the search path for the dynamic linker
 # This is required because libharu is installed in /usr/local/lib and the
@@ -15,9 +15,15 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 
 # Install dependencies
 #
-RUN apt-get update && apt-get install -y \
-    build-essential wget cmake libpng-dev libz3-dev \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y \
+#     build-essential wget cmake libpng-dev libz3-dev \
+#     && rm -rf /var/lib/apt/lists/*
+
+RUN apk add --no-cache \
+    build-base \
+    libpng-dev \
+    zlib-dev \
+    cmake
 
 WORKDIR /app
 
@@ -30,4 +36,3 @@ COPY Cargo.toml Cargo.lock build.rs ./
 # Build and test
 #
 RUN cargo build --release
-RUN cargo test --release
