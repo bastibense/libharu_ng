@@ -399,7 +399,7 @@ impl PdfPage {
     ///
     pub fn g_restore(&self) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_Page_GRestore(self.page) };
-        match unsafe { hb::HPDF_Page_GRestore(self.page) } {
+        match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
         }
