@@ -16,20 +16,8 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 # Install dependencies
 #
 RUN apt-get update && apt-get install -y \
-    build-essential wget cmake \
+    build-essential wget cmake libpng-dev zlib-dev \
     && rm -rf /var/lib/apt/lists/*
-
-# Download libharu
-#
-WORKDIR /app/libharu
-RUN wget https://github.com/libharu/libharu/archive/refs/tags/v2.4.4.tar.gz -O libharu.tar.gz \
-    && tar -xzf libharu.tar.gz \
-    && rm libharu.tar.gz \
-    && mkdir build \
-    && cd build \
-    && cmake ../libharu-2.4.4 \
-    && make \
-    && make install
 
 WORKDIR /app
 
