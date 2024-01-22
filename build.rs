@@ -38,6 +38,6 @@ fn main() {
 
     println!("cargo:rustc-link-search={}", dst.display());
     println!("cargo:rustc-link-lib=static=hpdf");
-    println!("cargo:rustc-link-lib=dylib=png");
-    println!("cargo:rustc-link-lib=dylib=z");
+    println!("cargo:rustc-link-lib=static=png");
+    println!("cargo:rustc-link-lib=static=z");
 }
