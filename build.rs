@@ -24,7 +24,13 @@ extern crate cc;
 extern crate pkg_config;
 
 fn main() {
-    let dst = cmake::build("libharu");
+    // let dst = cmake::build("libharu");
+
+    let outdir = std::env::var("OUT_DIR").unwrap();
+
+    let dst = cmake::Config::new("libharu")
+        .define("CMAKE_INSTALL_PREFIX", outdir)
+        .build();
 
     // add /opt/homebrew/opt to search
     println!("cargo:rustc-link-search=/opt/homebrew/opt/libpng/lib");
