@@ -1,5 +1,5 @@
 [package]
-version = "0.0.13"
+version = "0.0.14"
 
 name = "libharu_ng"
 description = "Generate PDFs with Rust using libharu"
