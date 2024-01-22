@@ -92,6 +92,7 @@ use haru_types::TextAlign;
 use crate::font::PdfFont;
 use crate::haru_bindings as hb;
 use crate::haru_types;
+use crate::prelude::PdfImage;
 
 /// The PDF Page API.
 ///
@@ -705,6 +706,8 @@ impl PdfPage {
 
     /// set_rgb_fill() sets the filling color.
     ///
+    /// Color values are between 0.0 and 1.0.
+    ///
     /// API: HPDF_Page_SetRGBFill
     ///
     pub fn set_rgb_fill(&self, r: f32, g: f32, b: f32) -> Result<&Self, HaruError> {
@@ -716,6 +719,8 @@ impl PdfPage {
     }
 
     /// set_rgb_stroke() sets the stroking color.
+    ///
+    /// Color values are between 0.0 and 1.0.
     ///
     /// API: HPDF_Page_SetRGBStroke
     ///
@@ -793,6 +798,26 @@ impl PdfPage {
     pub fn show_text(&self, text: &str) -> Result<&Self, HaruError> {
         let text = std::ffi::CString::new(text).unwrap();
         let result = unsafe { hb::HPDF_Page_ShowText(self.page, text.as_ptr()) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// draw_image() shows an image in one operation.
+    ///
+    /// API: HPDF_Page_DrawImage
+    ///
+    pub fn draw_image(
+        &self,
+        image: &PdfImage,
+        x: f32,
+        y: f32,
+        width: f32,
+        height: f32,
+    ) -> Result<&Self, HaruError> {
+        let result =
+            unsafe { hb::HPDF_Page_DrawImage(self.page, image.image_ref, x, y, width, height) };
         match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),

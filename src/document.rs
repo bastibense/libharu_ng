@@ -258,11 +258,19 @@ impl PdfDocument {
         &self,
         filename: &str,
         embedding: bool,
-    ) -> Result<PdfFont, HaruError> {
+    ) -> Result<String, HaruError> {
         let filename = std::ffi::CString::new(filename).unwrap();
         let embedding = if embedding { 1 } else { 0 };
         let fontname =
             unsafe { hb::HPDF_LoadTTFontFromFile(self.doc, filename.as_ptr(), embedding) };
+
+        if fontname.is_null() {
+            return Err(HaruError::from(0));
+        }
+
+        let fontname = unsafe { std::ffi::CStr::from_ptr(fontname) };
+        let fontname = fontname.to_str().unwrap();
+        Ok(fontname.to_string())
 
         // If this fails, the following error codes might be the culprit:
         //
@@ -272,11 +280,11 @@ impl PdfDocument {
         // - HPDF_INVALID_AFM_HEADER, HPDF_INVALID_CHAR_MATRICS_DATA, HPDF_INVALID_N_DATA - Cannot recognize AFM file.
         // - HPDF_UNSUPPORTED_TYPE1_FONT - Cannot recognize PFA/PFB file.
         //
-        let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
-        match font.is_null() {
-            true => Err(HaruError::from(0)),
-            false => Ok(PdfFont { font_ref: font }),
-        }
+        // let font = unsafe { hb::HPDF_GetFont(self.doc, fontname, core::ptr::null_mut()) };
+        // match font.is_null() {
+        //     true => Err(HaruError::from(0)),
+        //     false => Ok(PdfFont { font_ref: font }),
+        // }
     }
 
     /// load_tt_font_from_file2() loads a TrueType font file and returns a font object.
@@ -357,6 +365,31 @@ impl PdfDocument {
     ///
     pub fn use_jp_fonts(&self) -> Result<&Self, HaruError> {
         let result = unsafe { hb::HPDF_UseJPFonts(self.doc) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// Enable the UTF-8 encoding.
+    ///
+    /// API: HPDF_UseUTFEncodings
+    ///
+    pub fn use_utf_encodings(&self) -> Result<&Self, HaruError> {
+        let result = unsafe { hb::HPDF_UseUTFEncodings(self.doc) };
+        match result {
+            0 => Ok(self),
+            _ => Err(HaruError::from(result as u32)),
+        }
+    }
+
+    /// Set the current encoder.
+    ///
+    /// API: HPDF_SetCurrentEncoder
+    ///
+    pub fn set_current_encoder(&self, encoding_name: &str) -> Result<&Self, HaruError> {
+        let encoding_name = std::ffi::CString::new(encoding_name).unwrap();
+        let result = unsafe { hb::HPDF_SetCurrentEncoder(self.doc, encoding_name.as_ptr()) };
         match result {
             0 => Ok(self),
             _ => Err(HaruError::from(result as u32)),
