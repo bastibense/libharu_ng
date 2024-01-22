@@ -19,6 +19,7 @@ exclude = [
   ".dockerignore",
   "Dockerfile",
   "*.code-workspace",
+  ".DS_Store",
 ]
 
 [dependencies]
