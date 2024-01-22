@@ -35,8 +35,8 @@ For more information about the features, please see the [libharu documentation](
 
 ## Requirements
 
-- Installed [libharu](http://libharu.org/) (tested with version 2.4).
-  - See included Dockerfile for reference.
+- libz
+- libpng
 
 ## Usage
 
