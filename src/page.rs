@@ -873,6 +873,15 @@ impl PdfPage {
                 effective_width = img_width * ratio;
                 effective_height = img_height * ratio;
             }
+            ImageFit::Cover => {
+                // fill the rect, leaving no empty space
+                let width_ratio = rect.width / img_width;
+                let height_ratio = rect.height / img_height;
+                let ratio = width_ratio.max(height_ratio);
+                effective_width = img_width * ratio;
+                effective_height = img_height * ratio;
+                println!("effective size: {}x{}", effective_width, effective_height);
+            }
         }
 
         // Calculate horizontal/X position depending on align_h.

@@ -528,6 +528,8 @@ impl From<hb::HPDF_TextAlignment> for TextAlign {
 pub enum ImageFit {
     /// Fill the entire rect, possibly distorting the image.
     Fill,
+    /// Fill the entire rect, preserving the aspect ratio.
+    Cover,
     /// Fit the image to the page width.
     FitWidth,
     /// Fit the image to the page height.
