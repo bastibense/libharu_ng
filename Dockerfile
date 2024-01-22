@@ -16,7 +16,7 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 # Install dependencies
 #
 RUN apt-get update && apt-get install -y \
-    build-essential wget cmake libpng-dev zlib-dev \
+    build-essential wget cmake libpng-dev libz3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
