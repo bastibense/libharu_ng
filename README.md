@@ -18,6 +18,8 @@ Using `libharu_ng`, you can easily create PDF documents from Rust code.
 
 `libharu_ng` supports most features of `libharu`:
 
+### Standard libharu Features
+
 - Create PDF documents.
 - Add pages to the document.
 - Add text to pages.
@@ -33,6 +35,11 @@ Using `libharu_ng`, you can easily create PDF documents from Rust code.
 - Add outlines to the document.
 - Add metadata to the document.
 - Compiles the libharu library from source, embedding it into your Rust project.
+
+### Additional Features (provided by `libharu_ng`)
+
+- Simple functions for CTM transformations.
+  - Rotate, Translate, Scale, etc.
 
 For more information about the features, please see the [libharu documentation](http://libharu.org).
 
