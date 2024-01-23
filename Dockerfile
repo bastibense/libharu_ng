@@ -13,12 +13,10 @@ FROM rust:alpine
 #
 ENV LD_LIBRARY_PATH=/usr/local/lib
 
-ARG CRATESIO_TOKEN
-
-# Login with crates.io
-RUN cargo login ${CRATESIO_TOKEN}
 
 # Install dependencies
+#
+# When using Ubuntu/Debian:
 #
 # RUN apt-get update && apt-get install -y \
 #     build-essential wget cmake libpng-dev libz3-dev \
