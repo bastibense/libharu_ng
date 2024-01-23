@@ -45,7 +45,7 @@ For more information about the features, please see the [libharu documentation](
 
 ### On Ubuntu/Debian
 
-    $ apt-get install build-essential wget cmake libpng-dev libz3-dev
+    $ apt-get install build-essential cmake libpng-dev libz3-dev
 
 ### On macOS (Homebrew)
 

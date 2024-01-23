@@ -19,7 +19,7 @@ ENV LD_LIBRARY_PATH=/usr/local/lib
 # When using Ubuntu/Debian:
 #
 # RUN apt-get update && apt-get install -y \
-#     build-essential wget cmake libpng-dev libz3-dev \
+#     build-essential cmake libpng-dev libz3-dev \
 #     && rm -rf /var/lib/apt/lists/*
 
 RUN apk add --no-cache \
