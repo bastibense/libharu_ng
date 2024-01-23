@@ -31,7 +31,7 @@ WORKDIR /app
 #
 COPY libharu libharu
 COPY src src
-COPY Cargo.toml Cargo.lock build.rs ./
+COPY Cargo.toml Cargo.lock build.rs README.md ./
 
 # Build and test
 #
