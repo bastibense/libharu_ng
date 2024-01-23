@@ -13,6 +13,11 @@ FROM rust:alpine
 #
 ENV LD_LIBRARY_PATH=/usr/local/lib
 
+ARG CRATESIO_TOKEN
+
+# Login with crates.io
+RUN cargo login ${CRATESIO_TOKEN}
+
 # Install dependencies
 #
 # RUN apt-get update && apt-get install -y \
