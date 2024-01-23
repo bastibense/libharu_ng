@@ -8,7 +8,7 @@
 
 ## What is it?
 
-` libharu_ng` is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu)).
+`libharu_ng` is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu)).
 
 Using `libharu_ng`, you can easily create PDF documents from Rust code.
 
