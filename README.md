@@ -64,12 +64,6 @@ To use `libharu` in your Rust project, run the command line, in your Rust projec
 $ cargo add libharu_ng
 ```
 
-### Linking with libharu
-
-The library contains a `build.rs` file, which will try to find the `libharu` library on your system.
-
-This is probably not the final solution, but it works for now.
-
 ## Example
 
 ```rust
