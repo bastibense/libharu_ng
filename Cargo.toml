@@ -8,7 +8,16 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/bastibense/libharu_ng"
 homepage = "https://github.com/bastibense/libharu_ng"
-categories = ["external-ffi-bindings", "api-bindings"]
+categories = [
+  "external-ffi-bindings",
+  "api-bindings",
+  "pdf",
+  "libharu",
+  "generator",
+  "generation",
+  "pdflib",
+  "libpdf",
+]
 
 edition = "2021"
 build = "build.rs"
