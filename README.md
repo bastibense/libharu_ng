@@ -112,13 +112,11 @@ This crate, as is, will try to compile the `libharu` library from source, embedd
 
 Contributions are welcome. Please open an issue before submitting a pull request.
 
-### To-Do List
+If you want to contribute, please make sure that your code is formatted using `rustfmt` and that it compiles without warnings.
 
-- [ ] Add more documentation.
-- [ ] Add more examples.
-- [ ] Add more tests.
+Please refer to the issue tracker for ideas on what to contribute.
 
 # License
 
-This project is licensed under the MIT license.
-Haru is distributed under the ZLIB/LIBPNG License.
+- This project is licensed under the MIT license.
+- Haru is distributed under the ZLIB/LIBPNG License.
