@@ -1,8 +1,8 @@
 # libharu_ng
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bastibense/libharu_ng/master-build-test.yml)
-![GitHub Stars](https://img.shields.io/github/stars/bastibense/libharu_ng)
 ![Crates.io Downloads](https://img.shields.io/crates/d/libharu_ng)
+![GitHub Stars](https://img.shields.io/github/stars/bastibense/libharu_ng)
 
 #### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
 
