@@ -42,10 +42,6 @@ For more information about the features, please see the [libharu documentation](
 - libpng
 - cmake
 
-### On Alpine Linux
-
-    $ apk add --no-cache build-base libpng-dev zlib-dev cmake
-
 ### On Ubuntu/Debian
 
     $ apt-get install build-essential cmake libpng-dev libz3-dev
@@ -53,10 +49,6 @@ For more information about the features, please see the [libharu documentation](
 ### On macOS (Homebrew)
 
     $ brew install cmake libpng zlib
-
-### On Windows
-
-    (Author doesn't have a Windows machine, some help would be appreciated.)
 
 ## Usage
 
