@@ -10,11 +10,11 @@
 
 ` libharu_ng` is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu)).
 
-Using `libharu_ng``, you can easily create PDF documents from Rust code.
+Using `libharu_ng`, you can easily create PDF documents from Rust code.
 
 ## Features
 
-`libharu_ng` supports most features of `libharu``:
+`libharu_ng` supports most features of `libharu`:
 
 - Create PDF documents.
 - Add pages to the document.
