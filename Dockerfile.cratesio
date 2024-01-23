@@ -1,0 +1,42 @@
+
+#
+# This Dockerfile will build and test the library.
+#
+# Copyright (c) 2024, Bastian Bense <bb@neosw.de>
+#
+
+FROM rust:alpine
+
+# Set the search path for the dynamic linker
+# This is required because libharu is installed in /usr/local/lib and the
+# rust docker image does not include this path in the search path.
+#
+ENV LD_LIBRARY_PATH=/usr/local/lib
+
+ARG CRATESIO_TOKEN
+
+# Login with crates.io
+RUN cargo login ${CRATESIO_TOKEN}
+
+
+RUN apk add --no-cache \
+    build-base \
+    libpng-dev \
+    zlib-dev \
+    cmake
+
+WORKDIR /app
+
+# Copy source code
+#
+COPY libharu libharu
+COPY src src
+COPY Cargo.toml Cargo.lock build.rs ./
+
+# Build and test
+#
+RUN cargo build --release
+
+RUN cargo test --release
+
+RUN cargo publish
