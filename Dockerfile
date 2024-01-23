@@ -36,3 +36,5 @@ COPY Cargo.toml Cargo.lock build.rs ./
 # Build and test
 #
 RUN cargo build --release
+
+RUN cargo test --release
