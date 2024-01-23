@@ -4,30 +4,30 @@
 
 #### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
 
-#### ⚠️ This is Work In Progress. The API might change at any time. ⚠️
+#### ⚠️ This is Work In Progress. The API might change at any time.
 
 ## What is it?
 
-libharu_ng is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu)).
+` libharu_ng`` is a modern API wrapper for  `[libharu](http://libaru.org/)` ([GitHub Repository](https://github.com/libharu/libharu)).
 
 Using libharu_ng, you can create PDF documents from Rust code.
 
 ## Features
 
-libharu_ng supports most features of libharu:
+`libharu_ng` supports most features of `libharu``:
 
 - Create PDF documents.
 - Add pages to the document.
-- Add text to the pages.
+- Add text to pages.
   - Supporting text-wrapping into a given rectangle.
   - Use built-in fonts or load custom fonts (TTF).
-- Add images to the pages.
+- Add images to pages.
   - With support for JPEG and PNG images (including transparency).
 - Use custom page sizes.
 - Save and restore the graphics state.
 - Set password protection for the document.
-- Add shapes like lines, rectangles, circles, etc. to the pages.
-- Add annotations to the pages.
+- Add shapes like lines, rectangles, circles, etc. to pages.
+- Add annotations to pages.
 - Add outlines to the document.
 - Add metadata to the document.
 
@@ -37,6 +37,23 @@ For more information about the features, please see the [libharu documentation](
 
 - libz
 - libpng
+- cmake
+
+### On Alpine Linux
+
+    $ apk add --no-cache build-base libpng-dev zlib-dev cmake
+
+### On Ubuntu/Debian
+
+    $ apt-get install build-essential wget cmake libpng-dev libz3-dev
+
+### On macOS (Homebrew)
+
+    $ brew install cmake libpng zlib
+
+### On Windows
+
+    (Author doesn't have a Windows machine, some help would be appreciated.)
 
 ## Usage
 
@@ -55,6 +72,8 @@ This is probably not the final solution, but it works for now.
 ## Example
 
 ```rust
+// Example is work in progress.
+
 use libharu_ng::prelude::*;
 
 fn main() -> Result<(), HaruError> {
@@ -80,16 +99,11 @@ Contributions are welcome. Please open an issue before submitting a pull request
 
 ### To-Do List
 
-- [ ] Figure out how to handle deployment of the C library (for systems without a package for it).
 - [ ] Add more documentation.
-- [ ] Better error handling.
 - [ ] Add more examples.
 - [ ] Add more tests.
-
-# About
-
-This is just a wrapper around the C library [libharu](http://libharu.org/).
 
 # License
 
 This project is licensed under the MIT license.
+Haru is distributed under the ZLIB/LIBPNG License.
