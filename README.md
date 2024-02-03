@@ -6,17 +6,15 @@
 
 #### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
 
-#### ⚠️ This is Work In Progress. The API might change at any time.
-
 ## What is it?
-
-`libharu_ng` is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu)).
 
 Using `libharu_ng`, you can easily create PDF documents from Rust code.
 
-## Features
+`libharu_ng` is a modern API wrapper for [libharu](http://libaru.org/) ([GitHub Repository](https://github.com/libharu/libharu_ng)). `libharu` is a C library for creating PDF files. This crate provides a modern and safe Rust API for generating PDFs without having to worry about the underlying C code.
 
-`libharu_ng` supports most features of `libharu`:
+So, until there are mature pure-Rust alternatives for generating PDFs, `libharu_ng` is a good choice for generating PDFs from Rust code without having to use a headless browser or a commercial solution.
+
+## Features
 
 ### Standard libharu Features
 
@@ -45,9 +43,9 @@ For more information about the features, please see the [libharu documentation](
 
 ## Requirements
 
-- libz
-- libpng
-- cmake
+- libz (required at runtime)
+- libpng (required at runtime)
+- cmake (required for building the C library)
 
 ### On Ubuntu/Debian
 

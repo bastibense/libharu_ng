@@ -1,8 +1,8 @@
 [package]
-version = "0.0.25"
+version = "0.0.26"
 
 name = "libharu_ng"
-description = "Generate PDFs with Rust using libharu"
+description = "Easily generate PDFs from your Rust code!"
 authors = ["Bastian Bense <bb@neosw.de>"]
 license = "MIT"
 readme = "README.md"
@@ -31,8 +31,6 @@ exclude = [
 [dependencies]
 
 [build-dependencies]
-
-
 cc = "1.0.83"
 pkg-config = "0.3.29"
 cmake = "0.1.50"
