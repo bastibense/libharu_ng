@@ -2,7 +2,7 @@
 version = "0.1.1"
 
 name = "libharu_ng"
-description = "Easily generate PDFs from your Rust code!"
+description = "Easily generate PDFs from your Rust app!"
 authors = ["Bastian Bense <bb@neosw.de>"]
 license = "MIT"
 readme = "README.md"
