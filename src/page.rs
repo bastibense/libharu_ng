@@ -98,6 +98,7 @@ use crate::prelude::PdfImage;
 
 /// The PDF Page API.
 ///
+#[derive(Debug, Copy, Clone)]
 pub struct PdfPage {
     /// The reference to the haru page.
     pub page: hb::HPDF_Page,
