@@ -4,7 +4,7 @@
 ![Crates.io Downloads](https://img.shields.io/crates/d/libharu_ng)
 ![GitHub Stars](https://img.shields.io/github/stars/bastibense/libharu_ng)
 
-#### ⭐ Support us, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
+#### ⭐ Support this crate, be cool, [star this repository on GitHub](https://github.com/bastibense/libharu_ng)! :)
 
 ## What is it?
 
@@ -87,7 +87,7 @@ fn main() -> Result<(), HaruError> {
 }
 ```
 
-# Motivation & Alternatives
+# Motivation
 
 The main motivation behind `libharu_ng` is to provide a simple and modern API for generating PDFs from Rust code.
 
@@ -95,23 +95,11 @@ One of the requirements was fine-grained control over the content of the PDF doc
 
 There are a number of alternatives for generating PDFs from Rust code, each with their own advantages and disadvantages:
 
-- **lopdf** - [Crate](https://crates.io/crates/lopdf) - A pure Rust library for very low-level PDF manipulation.
-  - **printpdf** - [Crate](https://crates.io/crates/printpdf) - A "higher" level API for generating PDFs, based on `lopdf`.
-- **wkhtmltopdf** - [Crate](https://crates.io/crates/wkhtmltopdf) - A wrapper for the `wkhtmltopdf` command line tool - which is deprecated.
-- Using a headless browser like Chromium. This will require a _lot_ of RAM - possibly more than your server has available, especially if you want to generate multiple PDFs in parallel.
-- ...
-
-This is not a complete list, but it should give you an idea of the alternatives. Of course there are commercial solutions as well, but for many use cases, they are not an option, overkill, require extensive integration or are too expensive.
-
 This crate, as is, will try to compile the `libharu` library from source, embedding it into your Rust project. This means that you don't have to install any additional dependencies on your system, and you don't have to worry about the `libharu` version on your system. If you have problems with the embedded `libharu` version, please open an issue.
 
 # Contributing
 
 Contributions are welcome. Please open an issue before submitting a pull request.
-
-If you want to contribute, please make sure that your code is formatted using `rustfmt` and that it compiles without warnings.
-
-Please refer to the issue tracker for ideas on what to contribute.
 
 # License
 
