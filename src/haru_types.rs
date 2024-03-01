@@ -254,8 +254,8 @@ pub enum HaruError {
     UnknownError,
 }
 
-impl From<u32> for HaruError {
-    fn from(code: u32) -> Self {
+impl From<u64> for HaruError {
+    fn from(code: u64) -> Self {
         match code {
             0x1001 => HaruError::ArrayCountErr,
             0x1002 => HaruError::ArrayItemNotFound,

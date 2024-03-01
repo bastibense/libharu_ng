@@ -80,7 +80,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_SetPageMode(self.doc, mode.to_hpdf_mode()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -136,7 +136,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_SetPageLayout(self.doc, layout.to_hpdf_layout()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -156,7 +156,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_SaveToFile(self.doc, filename.as_ptr()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -166,7 +166,7 @@ impl PdfDocument {
     ///
     pub fn get_error(&self) -> HaruError {
         let error = unsafe { hb::HPDF_GetError(self.doc) };
-        HaruError::from(error as u32)
+        HaruError::from(error)
     }
 
     /// Create a new page.
@@ -206,7 +206,7 @@ impl PdfDocument {
         };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -219,7 +219,7 @@ impl PdfDocument {
             unsafe { hb::HPDF_SetPassword(self.doc, owner_passwd.as_ptr(), user_passwd.as_ptr()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -229,7 +229,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_SetCompressionMode(self.doc, mode.to_hpdf_compression()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -246,7 +246,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_Page_SetFontAndSize(page.page, font.font_ref, size) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -343,7 +343,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_UseCNSFonts(self.doc) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -355,7 +355,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_UseCNTFonts(self.doc) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -367,7 +367,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_UseJPFonts(self.doc) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -379,7 +379,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_UseUTFEncodings(self.doc) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -392,7 +392,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_SetCurrentEncoder(self.doc, encoding_name.as_ptr()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -404,7 +404,7 @@ impl PdfDocument {
         let result = unsafe { hb::HPDF_UseKRFonts(self.doc) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 

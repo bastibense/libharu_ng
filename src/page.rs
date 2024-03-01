@@ -122,7 +122,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Arc(self.page, x, y, radius, ang1, ang2) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -134,7 +134,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_BeginText(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -144,7 +144,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Circle(self.page, x, y, radius) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -167,7 +167,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Clip(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -181,7 +181,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_ClosePath(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -193,7 +193,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_ClosePathStroke(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -239,7 +239,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Concat(self.page, a, b, c, d, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -260,7 +260,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_CurveTo(self.page, x1, y1, x2, y2, x3, y3) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -273,7 +273,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_CurveTo2(self.page, x2, y2, x3, y3) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -287,7 +287,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_CurveTo3(self.page, x1, y1, x3, y3) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -299,7 +299,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Ellipse(self.page, x, y, xray, yray) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -311,7 +311,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_EndPath(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -323,7 +323,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_EndText(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -345,7 +345,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Eoclip(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -357,7 +357,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Eofill(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -369,7 +369,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_EofillStroke(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -381,7 +381,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Fill(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -393,7 +393,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_FillStroke(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -405,7 +405,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_GRestore(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -440,7 +440,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_GSave(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -452,7 +452,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_LineTo(self.page, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -464,7 +464,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetCharSpace(self.page, value) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -476,7 +476,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetCMYKFill(self.page, c, m, y, k) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -488,7 +488,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetCMYKStroke(self.page, c, m, y, k) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -500,7 +500,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetFontAndSize(self.page, font.font_ref, size) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -512,7 +512,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetGrayFill(self.page, gray) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -524,7 +524,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetGrayStroke(self.page, gray) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -536,7 +536,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetHorizontalScalling(self.page, value) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -548,7 +548,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetLineCap(self.page, line_cap as u32) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -560,7 +560,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetLineJoin(self.page, line_join as u32) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -572,7 +572,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetMiterLimit(self.page, miter_limit) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -584,7 +584,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetLineWidth(self.page, line_width) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -598,7 +598,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_MoveTextPos(self.page, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -611,7 +611,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_MoveTextPos2(self.page, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -624,7 +624,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_MoveTo(self.page, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -638,7 +638,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_MoveToNextLine(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -650,7 +650,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Rectangle(self.page, x, y, width, height) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -662,7 +662,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetWidth(self.page, width) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -674,7 +674,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetHeight(self.page, height) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -687,7 +687,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetTextRenderingMode(self.page, mode as u32) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -701,7 +701,7 @@ impl PdfPage {
         };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -711,7 +711,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Concat(self.page, 1.0, 0.0, 0.0, 1.0, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -741,7 +741,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetRGBFill(self.page, r, g, b) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -755,7 +755,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetRGBStroke(self.page, r, g, b) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -768,7 +768,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetTextLeading(self.page, value) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -789,7 +789,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetTextMatrix(self.page, a, b, c, d, x, y) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -802,7 +802,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetTextRise(self.page, value) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -814,7 +814,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_SetWordSpace(self.page, value) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -827,7 +827,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_ShowText(self.page, text.as_ptr()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -848,7 +848,7 @@ impl PdfPage {
         };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -955,7 +955,7 @@ impl PdfPage {
 
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -969,7 +969,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_ShowTextNextLine(self.page, text.as_ptr()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -991,7 +991,7 @@ impl PdfPage {
         };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -1003,7 +1003,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_Stroke(self.page) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -1016,7 +1016,7 @@ impl PdfPage {
         let result = unsafe { hb::HPDF_Page_TextOut(self.page, x, y, text.as_ptr()) };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 
@@ -1048,7 +1048,7 @@ impl PdfPage {
         };
         match result {
             0 => Ok(self),
-            _ => Err(HaruError::from(result as u32)),
+            _ => Err(HaruError::from(result)),
         }
     }
 }
