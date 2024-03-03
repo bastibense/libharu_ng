@@ -1,4 +1,4 @@
-use libharu_ng::prelude::*;
+use libharu_ng::{libharu_version, prelude::*};
 
 /// Hello World example.
 ///
@@ -6,6 +6,8 @@ use libharu_ng::prelude::*;
 ///
 
 fn main() -> Result<(), HaruError> {
+    println!("libharu version: {}", libharu_version());
+
     let doc = PdfDocument::new();
     let fnt = doc.get_font("Helvetica", None)?;
 

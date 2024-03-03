@@ -14,6 +14,10 @@ Using `libharu_ng`, you can easily create PDF documents from Rust code.
 
 So, until there are mature pure-Rust alternatives for generating PDFs, `libharu_ng` is a good choice for generating PDFs from Rust code without having to use a headless browser or a commercial solution.
 
+## `libharu` Version
+
+This crate uses the latest version of `libharu` (2.4.4) and will be updated to the latest version of `libharu` as soon as possible.
+
 ## Features
 
 ### Standard libharu Features

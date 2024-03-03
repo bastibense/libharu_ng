@@ -68,3 +68,25 @@ impl From<haru_bindings::HPDF_Box> for HpdfBox {
         }
     }
 }
+
+/// Returns the version of the libharu library.
+/// The version is a string in the format "major.minor.patch".
+///
+pub fn libharu_version() -> String {
+    let version = unsafe { haru_bindings::HPDF_GetVersion() };
+    let version = unsafe { std::ffi::CStr::from_ptr(version) };
+    version.to_str().unwrap().to_string()
+}
+
+/// Test which prints the version.
+///
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_libharu_version() {
+        let version = libharu_version();
+        println!("libharu version: {}", version);
+    }
+}
