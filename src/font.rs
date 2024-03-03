@@ -29,16 +29,16 @@
 //! - [x] HPDF_Font_GetFontName()
 //! - [x] HPDF_Font_GetEncodingName()
 //! - [x] HPDF_Font_GetUnicodeWidth()
-//! - [ ] HPDF_Font_GetBBox()
+//! - [x] HPDF_Font_GetBBox()
 //! - [x] HPDF_Font_GetAscent()
 //! - [x] HPDF_Font_GetDescent()
 //! - [x] HPDF_Font_GetXHeight()
 //! - [x] HPDF_Font_GetCapHeight()
-//! - [ ] HPDF_Font_TextWidth()
+//! - [x] HPDF_Font_TextWidth()
 //! - [ ] HPDF_Font_MeasureText()
 //!
 
-use crate::haru_bindings as hb;
+use crate::{haru_bindings as hb, HpdfBox};
 
 /// The font object.
 ///
@@ -80,6 +80,16 @@ impl PdfFont {
         unsafe { hb::HPDF_Font_GetUnicodeWidth(self.font_ref, code) }
     }
 
+    /// HPDF_Font_GetBBox() gets the bounding box of the font.
+    ///
+    /// When HPDF_Font_GetBox() succeed, it returns the HPDF_Box struct specifying the font bounding box. Otherwise, it returns a HPDF_Box struct of {0, 0, 0, 0}.
+    ///
+    /// API: HPDF_Box HPDF_Font_GetBBox
+
+    pub fn get_b_box(&self) -> HpdfBox {
+        unsafe { HpdfBox::from(hb::HPDF_Font_GetBBox(self.font_ref)) }
+    }
+
     /// HPDF_Font_GetAscent() gets the vertical ascent of the font.
     ///
     pub fn get_ascent(&self) -> i32 {
@@ -102,5 +112,20 @@ impl PdfFont {
     ///
     pub fn get_cap_height(&self) -> u32 {
         unsafe { hb::HPDF_Font_GetCapHeight(self.font_ref) }
+    }
+
+    /// HPDF_Font_TextWidth() gets total width of the text, number of charactors and number of the words.
+    ///
+    /// When HPDF_Font_TextWidth() succeed, it returns a HPDF_TextWidth struct including calculation result. Otherwise, it returns a HPDF_TextWidth struct whose attributes are all ZERO.
+    ///
+    pub fn text_width(&self, text: &str) -> hb::HPDF_TextWidth {
+        let text = std::ffi::CString::new(text).unwrap();
+        unsafe {
+            hb::HPDF_Font_TextWidth(
+                self.font_ref,
+                text.as_ptr() as *const u8,
+                text.as_bytes().len() as u32,
+            )
+        }
     }
 }

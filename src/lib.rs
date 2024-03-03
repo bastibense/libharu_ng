@@ -48,3 +48,23 @@ pub mod prelude {
 /// The error callback function type
 pub type ErrorCallback =
     extern "C" fn(error_no: i32, detail_no: i32, user_data: *mut std::ffi::c_void);
+
+pub struct HpdfBox {
+    pub left: f32,
+    pub bottom: f32,
+    pub right: f32,
+    pub top: f32,
+}
+
+/// Conversion from HPDF_Box to HpdfBox
+///
+impl From<haru_bindings::HPDF_Box> for HpdfBox {
+    fn from(hpdf_box: haru_bindings::HPDF_Box) -> Self {
+        HpdfBox {
+            left: hpdf_box.left,
+            bottom: hpdf_box.bottom,
+            right: hpdf_box.right,
+            top: hpdf_box.top,
+        }
+    }
+}
