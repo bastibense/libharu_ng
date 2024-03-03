@@ -19,7 +19,7 @@ dependencies = [
 
 [[package]]
 name = "libharu_ng"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "cmake",
 ]
