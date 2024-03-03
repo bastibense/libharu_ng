@@ -31,6 +31,4 @@ exclude = [
 [dependencies]
 
 [build-dependencies]
-cc = "1.0.83"
-pkg-config = "0.3.29"
 cmake = "0.1.50"

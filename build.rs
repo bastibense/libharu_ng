@@ -20,9 +20,6 @@
 //
 // Contact: Bastian Bense, bb@neosw.de
 
-extern crate cc;
-extern crate pkg_config;
-
 fn main() {
     // let dst = cmake::build("libharu");
 
