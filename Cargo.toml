@@ -1,8 +1,8 @@
 [package]
-version = "1.0.2"
+version = "1.0.3"
 
 name = "libharu_ng"
-description = "Easily generate PDFs from your Rust app!"
+description = "Easily generate PDFs from your Rust app."
 authors = ["Bastian Bense <bb@neosw.de>"]
 license = "MIT"
 readme = "README.md"

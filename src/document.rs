@@ -22,17 +22,6 @@
 
 //! PDF-Document related structs and functions.
 //!
-//! ## Implementation Status
-//!
-//! ### Fonts
-//! - [x] HPDF_LoadType1FontFromFile()
-//! - [x] HPDF_LoadTTFontFromFile()
-//! - [x] HPDF_LoadTTFontFromFile2()
-//! - [x] HPDF_UseCNSFonts()
-//! - [x] HPDF_UseCNTFonts()
-//! - [x] HPDF_UseJPFonts()
-//! - [x] HPDF_UseKRFonts()
-//!
 //! ### Encodings
 //! - [ ] HPDF_Encoder_GetType()
 //! - [ ] HPDF_Encoder_GetByteType()
